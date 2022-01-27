@@ -24,7 +24,7 @@ function displayProductList(productsList) {
 
         //Création des éléments dynamique
 
-        let productLink = document.createElement("a");
+        let productLink = document.createElement('a');
         document.getElementById('items').appendChild(productLink);
         productLink.href = `product.html?id=${product._id}`;
 
@@ -45,4 +45,4 @@ function displayProductList(productsList) {
         productDescription.textContent = product.description;
 
     }
-}
+};
