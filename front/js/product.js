@@ -53,7 +53,7 @@ function displayProduct(product) {
 
         let productColor = document.createElement('option');
         document.getElementById('colors').appendChild(productColor);
-        
-
+        productColor.value = productById.colors[color];
+        productColor.textContent = productById.colors[color];
     }
 };
