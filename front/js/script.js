@@ -22,6 +22,8 @@ function displayProductList(productsList) {
     for (let p in productsList) {
         const product = productsList[p];
 
+        //Création des éléments dynamique
+
         let productLink = document.createElement("a");
         document.getElementById('items').appendChild(productLink);
         productLink.href = `product.html?id=${product._id}`;
