@@ -56,4 +56,28 @@ function displayProduct(product) {
         productColor.value = productById.colors[color];
         productColor.textContent = productById.colors[color];
     }
+
 };
+
+//Récupération des informations de l'article selectionné
+
+function getProducts() {
+
+    buttonIdAddToCart = document.getElementById('addToCart');
+
+    //Au click on récupére les informations du produit 
+
+    buttonIdAddToCart.addEventListener('click', function () {
+
+        let colorChoice = document.getElementById('colors');
+        colorChoice = colorChoice.value;
+        console.log(colorChoice);
+
+        let quantityChoice = document.getElementById('quantity');
+        quantityChoice = quantityChoice.value;
+        console.log(quantityChoice);
+    });
+
+};
+
+getProducts();
