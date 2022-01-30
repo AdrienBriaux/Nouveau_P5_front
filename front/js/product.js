@@ -61,13 +61,15 @@ function displayProduct(product) {
 
 //Récupération des informations de l'article selectionné
 
+getProducts();
+
 function getProducts() {
 
     buttonIdAddToCart = document.getElementById('addToCart');
 
     //Au click on récupére les informations du produit 
 
-    buttonIdAddToCart.addEventListener('click', function () {
+    buttonIdAddToCart.addEventListener('click', function (event) {
 
         let colorChoice = document.getElementById('colors');
         colorChoice = colorChoice.value;
@@ -76,8 +78,23 @@ function getProducts() {
         let quantityChoice = document.getElementById('quantity');
         quantityChoice = quantityChoice.value;
         console.log(quantityChoice);
+
+        //Creation d'un array contenant les informations du produit
+
+        let dataCart = {
+
+            productId: productId,
+            colorChoice: colorChoice,
+            quantityChoice: quantityChoice
+
+        };
+
+        //Stockage des données
+
+        let dataCartStorage = JSON.stringify(dataCart);
+        localStorage.setItem("dataCart", dataCartStorage);
+        console.log(dataCartStorage);
+
     });
 
 };
-
-getProducts();
