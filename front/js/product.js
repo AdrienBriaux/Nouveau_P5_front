@@ -90,9 +90,16 @@ function addToCart() {
 
         //Sauvegarde du choix dans le local storage
 
-        localStorage.setItem("localStorageArea", JSON.stringify(arrayCartData));
-        
-        //localStorage.clear();
+        //Si je selectionne une quantité non nul et choisi une couleur
+
+        if (quantityChoice > 0 && colorChoice !== undefined) {
+
+            localStorage.setItem("localStorageArea", JSON.stringify(arrayCartData));
+
+            //localStorage.clear();
+        }
+
+
     });
 
 };
