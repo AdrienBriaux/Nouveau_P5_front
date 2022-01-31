@@ -69,7 +69,8 @@ function getProducts() {
 
     //Au click on récupére les informations du produit 
 
-    buttonIdAddToCart.addEventListener('click', function (event) {
+    buttonIdAddToCart.addEventListener('click', function () {
+
 
         let colorChoice = document.getElementById('colors');
         colorChoice = colorChoice.value;
@@ -98,3 +99,4 @@ function getProducts() {
     });
 
 };
+
