@@ -88,19 +88,20 @@ function addToCart() {
 
         };
 
-        //Sauvegarde du choix dans le local storage
+        //Création du local storage
 
-        //Si je selectionne une quantité non nul et choisi une couleur
+        let localStorageArea = localStorage.getItem(JSON.parse(arrayCartData));
+
+        //Si je selectionne une quantité non nul et choisi une couleur je stock l'array dans le local storage
 
         if (quantityChoice > 0 && colorChoice !== undefined) {
 
             localStorage.setItem("localStorageArea", JSON.stringify(arrayCartData));
 
-            //localStorage.clear();
-        }
-
+        };
 
     });
 
 };
 
+           // localStorage.clear();
