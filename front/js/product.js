@@ -88,6 +88,8 @@ function addToCart() {
 
         };
 
+
+
         //Création du local storage
 
         let localStorageArea = localStorage.getItem(JSON.parse(arrayCartData));
@@ -99,9 +101,20 @@ function addToCart() {
             localStorage.setItem("localStorageArea", JSON.stringify(arrayCartData));
 
         };
+        // On ajoute un nouvel élément si il n'existe pas dans le panier
 
+        /* if (localStorageArea) {
+ 
+             for (let el in localStorageArea) {
+ 
+                 if (el.productId !== productId && el.colorChoice !== colorChoice) {
+ 
+                     localStorageArea.push(arrayCartData);
+                     localStorage.setItem('localStorageArea', JSON.stringify(arrayCartData));
+                     console.log(localStorageArea);
+                 }
+             }
+         } */
     });
 
 };
-
-           // localStorage.clear();
