@@ -76,6 +76,11 @@ function addToCart() {
         let quantityChoice = document.getElementById('quantity');
         quantityChoice = quantityChoice.value;
 
+        if (quantityChoice <= 0 || !colorChoice) {
+            alert('Vous devez remplir une couleur et la quantité');
+            return;
+        };
+
         //Creation d'un array contenant les informations du produit
 
         let productOption = {
@@ -87,7 +92,7 @@ function addToCart() {
         };
 
 
-        // Création du local storage
+        // Visualisation du local storage dans le navigateur
 
         let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
 
@@ -98,18 +103,30 @@ function addToCart() {
 
         if (localStorageArea) {
 
+            // On cherche si l'élément selectionné est identique à un élément déjà dans le local storage
+
+            const found = localStorageArea.find(l => l.productId == productId && l.colorChoice == colorChoice);
+
+            // Si l'élément existe on incrémente la quantité selectionné à ce même produit
+
+            if (found) {
+                const quantity = parseInt(found.quantityChoice) + parseInt(quantityChoice);
+                found.quantityChoice = quantity;
+                localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
+                return;
+            }
+            // Sinon on stock les informations du nouveau produit dans le tableau du local storage
+
             localStorageArea.push(productOption);
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
+            return;
         }
 
-        //Si il n'y a pas de produit enregistré dans le local storage
+        // Si le local storage est vide on le transforme en tableau et on sauvegarde les options du produit
 
-        else {
-
-            localStorageArea = [];
-            localStorageArea.push(productOption);
-            localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
-        }
+        localStorageArea = [];
+        localStorageArea.push(productOption);
+        localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
     });
 
