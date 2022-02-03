@@ -21,11 +21,11 @@ function getCartById() {
 
 getCartById();
 
-// Affichage dynamique des produits
+// Récupération des données des produits du panier
 
+for (let id of idCarts) {
 
-/* for (let id in idCarts) {
-    fetch("http://localhost:3000/api/products/" + idCart)
+    fetch("http://localhost:3000/api/products/" + id)
 
         .then(function (res) {
             if (res.ok) {
@@ -33,12 +33,12 @@ getCartById();
             }
         })
 
-        .then(function (product) {
-            console.log(product);
-            displayProduct(product);
+        .then(function (productList) {
+            console.log(productList);
+            displayCart(productList);
         })
 
         .catch(function (error) {
             alert("Une erreur est survenue")
         });
-}; */
+};
