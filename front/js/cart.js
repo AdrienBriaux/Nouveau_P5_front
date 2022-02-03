@@ -3,7 +3,7 @@ const idCarts = [];
 
 // On récupére l'id de tous les produits du panier
 
-function getCartById() {
+function getIdCart() {
 
     let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
 
@@ -19,26 +19,31 @@ function getCartById() {
     console.log(idCarts)
 };
 
-getCartById();
+getIdCart();
 
-// Récupération des données des produits du panier
+// Récupération des données des produits du panier par leur id
 
-for (let id of idCarts) {
+function getProductCard() {
 
-    fetch("http://localhost:3000/api/products/" + id)
+    for (let id of idCarts) {
 
-        .then(function (res) {
-            if (res.ok) {
-                return res.json();
-            }
-        })
+        fetch("http://localhost:3000/api/products/" + id)
 
-        .then(function (productList) {
-            console.log(productList);
-            displayCart(productList);
-        })
+            .then(function (res) {
+                if (res.ok) {
+                    return res.json();
+                }
+            })
 
-        .catch(function (error) {
-            alert("Une erreur est survenue")
-        });
+            .then(function (productList) {
+                console.log(productList);
+                displayCart(productList);
+            })
+
+            .catch(function (error) {
+                alert("Une erreur est survenue")
+            });
+    };
 };
+
+getProductCard();
