@@ -19,7 +19,7 @@ fetch("http://localhost:3000/api/products")
 
 function displayProductList(productsList) {
 
-// Pour chaque Objects dans l'array des produits de l'api
+    // Pour chaque Objects dans l'array des produits de l'api
 
     for (let p in productsList) {
         const product = productsList[p];

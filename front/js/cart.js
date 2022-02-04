@@ -52,10 +52,23 @@ async function displayCart(productList) {
         let imgItem = document.createElement('img')
         document.querySelector('.cart__item__img').appendChild(imgItem);
         imgItem.src = product.imageUrl;
-        imgItem.alt = product.alt;
+        imgItem.alt = product.altTxt;
 
         let cartItemContentDiv = document.createElement('div');
         document.querySelector('.cart__item').appendChild(cartItemContentDiv);
+        cartItemContentDiv.className = 'cart__item__content';
+
+        let cartItemContentDescriptionDiv = document.createElement('div');
+        cartItemContentDiv.appendChild(cartItemContentDescriptionDiv);
+        cartItemContentDescriptionDiv.className = 'cart__item__content__description';
+
+        let productName = document.createElement('h2');
+        cartItemContentDescriptionDiv.appendChild(productName);
+        productName.textContent = product.name;
+
+        let productColor = document.createElement('p');
+        
+
 
     }
 
