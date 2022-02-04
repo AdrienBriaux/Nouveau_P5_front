@@ -25,13 +25,13 @@ fetch("http://localhost:3000/api/products/" + productId)
     });
 
 
-//Intégartion dynamique des informations du produit
+// Intégartion dynamique des informations du produit
 
 function displayProduct(product) {
 
     const productById = product;
 
-    //Insertion des éléments dynamique
+    // Insertion dynamique des éléments
 
     let productImg = document.createElement('img');
     document.querySelector('.item__img').appendChild(productImg);
@@ -47,7 +47,7 @@ function displayProduct(product) {
     let productDescription = document.getElementById('description');
     productDescription.textContent = productById.description;
 
-    //Création du choix des couleurs dynamique
+    // Création du choix des couleurs dynamique
 
     for (let color in product.colors) {
 
@@ -59,13 +59,13 @@ function displayProduct(product) {
 
 };
 
-//Ajout du produit sélectionner dans le panier
+// Ajout du produit sélectionner dans le panier
 
 function addToCart() {
 
     buttonIdAddToCart = document.getElementById('addToCart');
 
-    //Au click on récupére les informations du produit selectionné
+    // Au click on récupére les informations du produit selectionné
 
     buttonIdAddToCart.addEventListener('click', function () {
 
@@ -81,7 +81,7 @@ function addToCart() {
             return;
         };
 
-        //Creation d'un array contenant les informations du produit
+        // Creation d'un array contenant les informations du produit
 
         let productOption = {
 
