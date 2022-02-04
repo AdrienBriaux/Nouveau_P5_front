@@ -28,21 +28,35 @@ async function getProductCard() {
 getProductCard();
 
 
-// Intégration des produits dans la page
+// //Intégration dynamique des éléments dans le DOM
 
 async function displayCart(productList) {
 
-    // Insertion dynamique des éléments
+    // Pour chaque objets dans l'array liste du panier
 
-    let cartItemArticle = document.createElement('article');
-    document.getElementById('cart__items').appendChild(cartItemArticle);
-    cartItemArticle.className = 'cart__item';
+    for (let p in productList) {
 
-    let cartItemImgDiv = document.createElement('div');
-    document.querySelector('.cart__item').appendChild(cartItemImgDiv);
-    cartItemImgDiv.className = 'cart__item__img';
+        const product = productList[p];
 
-    let imgItem = document.createElement('img')
-    imgItem.src = productList.imageUrl;
-    imgItem.alt = productList.alt;
+
+        // Insertion dynamique des éléments
+
+        let cartItemArticle = document.createElement('article');
+        document.getElementById('cart__items').appendChild(cartItemArticle);
+        cartItemArticle.className = 'cart__item';
+
+        let cartItemImgDiv = document.createElement('div');
+        document.querySelector('.cart__item').appendChild(cartItemImgDiv);
+        cartItemImgDiv.className = 'cart__item__img';
+
+        let imgItem = document.createElement('img')
+        document.querySelector('.cart__item__img').appendChild(imgItem);
+        imgItem.src = product.imageUrl;
+        imgItem.alt = product.alt;
+
+        let cartItemContentDiv = document.createElement('div');
+        document.querySelector('.cart__item').appendChild(cartItemContentDiv);
+
+    }
+
 };
