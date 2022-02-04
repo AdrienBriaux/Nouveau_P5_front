@@ -1,11 +1,11 @@
 const idCarts = [];
-
+let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
 
 // On récupére l'id de tous les produits du panier
 
 function getIdCart() {
 
-    let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
+
 
     if (localStorageArea) {
 
@@ -25,25 +25,25 @@ getIdCart();
 
 function getProductCard() {
 
-    for (let id of idCarts) {
 
-        fetch("http://localhost:3000/api/products/" + id)
+    idCarts.forEach(productId => fetch("http://localhost:3000/api/products/" + productId)
 
-            .then(function (res) {
-                if (res.ok) {
-                    return res.json();
-                }
-            })
 
-            .then(function (productList) {
-                console.log(productList);
-                displayCart(productList);
-            })
+        .then(function (res) {
+            if (res.ok) {
+                return res.json();
+            }
+        })
 
-            .catch(function (error) {
-                alert("Une erreur est survenue")
-            });
-    };
+        .then(function (productList) {
+            console.log(productList);
+            displayCart(productList);
+        })
+
+        .catch(function (error) {
+            alert("Une erreur est survenue")
+        })
+    )
 };
 
 getProductCard();
