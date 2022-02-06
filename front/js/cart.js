@@ -34,16 +34,19 @@ async function displayCart(productList) {
 
     // Pour chaque objets dans l'array liste du panier
 
-    for (let p in productList) {
+    for (let item in productList) {
 
-        const product = productList[p];
+        const product = productList[item];
+        const idProduct = productList[item]._id;
 
+        console.log('id des produits', idProduct);
 
         // Insertion dynamique des éléments
 
         let cartItemArticle = document.createElement('article');
         document.getElementById('cart__items').appendChild(cartItemArticle);
         cartItemArticle.className = 'cart__item';
+        cartItemArticle.setAttribute('data-id', idProduct);
 
         let cartItemImgDiv = document.createElement('div');
         document.querySelector('.cart__item').appendChild(cartItemImgDiv);
@@ -67,8 +70,38 @@ async function displayCart(productList) {
         productName.textContent = product.name;
 
         let productColor = document.createElement('p');
-        
+        cartItemContentDescriptionDiv.appendChild(productColor);
 
+        let productPrice = document.createElement('p');
+        cartItemContentDescriptionDiv.appendChild(productPrice);
+
+        let cardItemContentSettingsDiv = document.createElement('div');
+        cardItemContentSettingsDiv.className = 'cart__item__content__settings';
+        cartItemContentDiv.appendChild(cardItemContentSettingsDiv);
+
+        let cartItemContentSettingsQuantityDiv = document.createElement('div');
+        cartItemContentSettingsQuantityDiv.className = 'cart__item__content__settings__quantity';
+        cardItemContentSettingsDiv.appendChild(cartItemContentSettingsQuantityDiv);
+
+        let quantityProduct = document.createElement('p');
+        cartItemContentSettingsQuantityDiv.appendChild(quantityProduct);
+        quantityProduct.textContent = 'Qté :';
+
+        let InputModifyProduct = document.createElement('input');
+        cartItemContentSettingsQuantityDiv.appendChild(InputModifyProduct);
+        InputModifyProduct.setAttribute('type', Number);
+        InputModifyProduct.setAttribute('name', 'itemQuantity');
+        InputModifyProduct.setAttribute('min', "1");
+        InputModifyProduct.setAttribute('max', "100");
+        InputModifyProduct.setAttribute('value', "le nombre de produit");
+
+        let cartItemContentSettingsDeleteDiv = document.createElement('div');
+        cardItemContentSettingsDiv.appendChild(cartItemContentSettingsDeleteDiv);
+        cartItemContentSettingsDeleteDiv.className = 'cart__item__content__settings__delete';
+
+        let deleteItem = document.createElement('p');
+        cartItemContentSettingsDeleteDiv.appendChild(deleteItem);
+        deleteItem.textContent = 'Supprimer';
 
     }
 

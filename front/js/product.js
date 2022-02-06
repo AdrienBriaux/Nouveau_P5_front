@@ -115,6 +115,7 @@ function addToCart() {
                 localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
                 return;
             }
+            
             // Sinon on stock les informations du nouveau produit dans le tableau du local storage
 
             localStorageArea.push(productOption);
