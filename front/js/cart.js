@@ -30,7 +30,7 @@ getProductCard();
 
 // //Intégration dynamique des éléments dans le DOM
 
-function displayCart(productList) {
+async function displayCart(productList) {
 
     // Pour chaque objets dans l'array liste du panier
 
