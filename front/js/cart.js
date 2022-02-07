@@ -34,12 +34,10 @@ async function displayCart(productList) {
 
     // Pour chaque objets dans l'array liste du panier
 
-    for (let item in productList) {
+    for (let item in [productList]) {
 
         const product = productList[item];
         const idProduct = productList[item]._id;
-
-        console.log('id des produits', idProduct);
 
         // Insertion dynamique des éléments
 
@@ -106,3 +104,5 @@ async function displayCart(productList) {
     }
 
 };
+
+displayCart();
