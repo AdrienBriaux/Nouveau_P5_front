@@ -30,11 +30,11 @@ getProductCard();
 
 // //Intégration dynamique des éléments dans le DOM
 
-async function displayCart(productList) {
+function displayCart(productList) {
 
     // Pour chaque objets dans l'array liste du panier
 
-    for (let item in [productList]) {
+    for (let item in productList) {
 
         const product = productList[item];
         const idProduct = productList[item]._id;
