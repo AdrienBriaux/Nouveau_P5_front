@@ -45,6 +45,7 @@ function displayCart(productList) {
         document.getElementById('cart__items').appendChild(cartItemArticle);
         cartItemArticle.className = 'cart__item';
         cartItemArticle.setAttribute('data-id', idProduct);
+        cartItemArticle.setAttribute('data-color', localStorageArea[item].colorChoice);
 
         let cartItemImgDiv = document.createElement('div');
         cartItemArticle.appendChild(cartItemImgDiv);
