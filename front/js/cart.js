@@ -109,4 +109,19 @@ function displayCart(productList) {
 
 };
 
-displayCart();
+
+// Modifier la quantité de produit
+
+function modifyQuantity() {
+
+    btnSelectQuantity = document.querySelector('.itemQuantity');
+
+    btnSelectQuantity.addEventListener('change', function () {
+
+        let quantitySelected = input.value;
+        console.log(quantitySelected);
+    });
+
+};
+
+modifyQuantity();
