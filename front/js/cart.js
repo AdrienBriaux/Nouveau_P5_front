@@ -69,6 +69,7 @@ function displayCart(productList) {
 
         let productColor = document.createElement('p');
         cartItemContentDescriptionDiv.appendChild(productColor);
+        productColor.textContent = localStorageArea[item].colorChoice;
 
         let productPrice = document.createElement('p');
         cartItemContentDescriptionDiv.appendChild(productPrice);
