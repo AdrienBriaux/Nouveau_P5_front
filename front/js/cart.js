@@ -85,7 +85,7 @@ function displayCart(productList) {
 
         let quantityProduct = document.createElement('p');
         cartItemContentSettingsQuantityDiv.appendChild(quantityProduct);
-        quantityProduct.textContent = 'Qté :';
+        quantityProduct.textContent = `Qté : ${localStorageArea[item].quantityChoice}`;
 
         let InputModifyProduct = document.createElement('input');
         cartItemContentSettingsQuantityDiv.appendChild(InputModifyProduct);
