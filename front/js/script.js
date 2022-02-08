@@ -1,18 +1,24 @@
-//Ouverture de l'API
+// Appel de l'API
 
 fetch("http://localhost:3000/api/products")
 
     .then(function (res) {
+
         if (res.ok) {
             return res.json();
         }
+
     })
     .then(function (productsList) {
+
         console.log(productsList);
         displayProductList(productsList);
     })
+
     .catch(function (error) {
+
         alert("une erreur est survenue")
+
     });
 
 //Intégration dynamique des éléments dans le DOM
@@ -22,6 +28,7 @@ function displayProductList(productsList) {
     // Pour chaque Objects dans l'array des produits de l'api
 
     for (let p in productsList) {
+
         const product = productsList[p];
 
         //Création des éléments dynamique

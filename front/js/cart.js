@@ -47,16 +47,16 @@ function displayCart(productList) {
         cartItemArticle.setAttribute('data-id', idProduct);
 
         let cartItemImgDiv = document.createElement('div');
-        document.querySelector('.cart__item').appendChild(cartItemImgDiv);
+        cartItemArticle.appendChild(cartItemImgDiv);
         cartItemImgDiv.className = 'cart__item__img';
 
         let imgItem = document.createElement('img')
-        document.querySelector('.cart__item__img').appendChild(imgItem);
+        cartItemImgDiv.appendChild(imgItem);
         imgItem.src = product.imageUrl;
         imgItem.alt = product.altTxt;
 
         let cartItemContentDiv = document.createElement('div');
-        document.querySelector('.cart__item').appendChild(cartItemContentDiv);
+        cartItemImgDiv.appendChild(cartItemContentDiv);
         cartItemContentDiv.className = 'cart__item__content';
 
         let cartItemContentDescriptionDiv = document.createElement('div');
