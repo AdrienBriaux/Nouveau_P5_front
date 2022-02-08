@@ -74,7 +74,7 @@ function displayCart(productList) {
 
         let productPrice = document.createElement('p');
         cartItemContentDescriptionDiv.appendChild(productPrice);
-        productPrice.textContent = product.price;
+        productPrice.textContent = product.price + ' €';
 
         let cardItemContentSettingsDiv = document.createElement('div');
         cardItemContentSettingsDiv.className = 'cart__item__content__settings';
@@ -86,10 +86,11 @@ function displayCart(productList) {
 
         let quantityProduct = document.createElement('p');
         cartItemContentSettingsQuantityDiv.appendChild(quantityProduct);
-        quantityProduct.textContent = 'Qté :';
+        quantityProduct.textContent = 'Qté : ';
 
         let InputModifyProduct = document.createElement('input');
         cartItemContentSettingsQuantityDiv.appendChild(InputModifyProduct);
+        InputModifyProduct.className = 'itemQuantity';
         InputModifyProduct.setAttribute('type', 'number');
         InputModifyProduct.setAttribute('name', 'itemQuantity');
         InputModifyProduct.setAttribute('min', "1");
