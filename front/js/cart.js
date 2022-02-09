@@ -41,7 +41,8 @@ function displayCart(productList) {
     for (let item in productList) {
 
         const product = productList[item];
-        const idProduct = productList[item]._id;
+        const idProduct = product._id;
+        const color = localStorageArea[item].colorChoice;
 
         // Insertion dynamique des éléments
 
@@ -92,30 +93,28 @@ function displayCart(productList) {
         cartItemContentSettingsQuantityDiv.appendChild(quantityProduct);
         quantityProduct.textContent = 'Qté : ';
 
-        let InputModifyProduct = document.createElement('input');
-        cartItemContentSettingsQuantityDiv.appendChild(InputModifyProduct);
-        InputModifyProduct.className = 'itemQuantity';
-        InputModifyProduct.setAttribute('type', 'number');
-        InputModifyProduct.setAttribute('name', 'itemQuantity');
-        InputModifyProduct.setAttribute('min', "1");
-        InputModifyProduct.setAttribute('max', "100");
-        InputModifyProduct.setAttribute('value', localStorageArea[item].quantityChoice);
+        let inputModifyProduct = document.createElement('input');
+        cartItemContentSettingsQuantityDiv.appendChild(inputModifyProduct);
+        inputModifyProduct.className = 'itemQuantity';
+        inputModifyProduct.setAttribute('type', 'number');
+        inputModifyProduct.setAttribute('name', 'itemQuantity');
+        inputModifyProduct.setAttribute('min', "1");
+        inputModifyProduct.setAttribute('max', "100");
+        inputModifyProduct.setAttribute('value', localStorageArea[item].quantityChoice);
 
         // Au changement de la quantité du produit
 
-        InputModifyProduct.addEventListener('change', () => {
+        inputModifyProduct.addEventListener('change', () => {
 
-            let resultQuantity = InputModifyProduct.value;
-            let idProduct = cartItemArticle.dataset.id;
-            let color = cartItemArticle.dataset.color;
+            let resultQuantity = inputModifyProduct.value;
+
+
 
             // On cherche le produit dont la valeur à changé
 
             const productFound = localStorageArea.find(el => el.quantityChoice !== resultQuantity && el.productId == idProduct && el.colorChoice == color);
 
             productFound.quantityChoice = resultQuantity;
-
-            localStorageArea.quantityChoice = productFound.quantityChoice;
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
@@ -136,15 +135,9 @@ function displayCart(productList) {
 
         deleteItem.addEventListener('click', (event) => {
 
-            // On récupére l'id et la couleur du produit 
-
-            let id = cartItemArticle.dataset.id;
-            let color = cartItemArticle.dataset.color;
-
-
             // On filtre les produits qui ne sont pas identique
 
-            localStorageArea = localStorageArea.filter(el => el.productId !== id || el.colorChoice !== color);
+            localStorageArea = localStorageArea.filter(el => el.productId !== idProduct || el.colorChoice !== color);
 
             // On sauvegarde le résultat dans le local storage
 
