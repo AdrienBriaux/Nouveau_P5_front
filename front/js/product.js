@@ -110,6 +110,7 @@ function addToCart() {
             // Si l'élément existe on incrémente la quantité selectionné à ce même produit
 
             if (found) {
+                
                 const quantity = parseInt(found.quantityChoice) + parseInt(quantityChoice);
                 found.quantityChoice = quantity;
                 localStorage.setItem('productStorage', JSON.stringify(localStorageArea));

@@ -101,6 +101,28 @@ function displayCart(productList) {
         InputModifyProduct.setAttribute('max', "100");
         InputModifyProduct.setAttribute('value', localStorageArea[item].quantityChoice);
 
+        // Au changement de la quantité du produit
+
+        InputModifyProduct.addEventListener('change', () => {
+
+            let resultQuantity = InputModifyProduct.value;
+            let idProduct = cartItemArticle.dataset.id;
+            let color = cartItemArticle.dataset.color;
+
+            // On cherche le produit dont la valeur à changé
+
+            const productFound = localStorageArea.find(el => el.quantityChoice !== resultQuantity && el.productId == idProduct && el.colorChoice == color);
+
+            productFound.quantityChoice = resultQuantity;
+
+            localStorageArea.quantityChoice = productFound.quantityChoice;
+
+            localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
+
+            return;
+
+        });
+
 
         let cartItemContentSettingsDeleteDiv = document.createElement('div');
         cardItemContentSettingsDiv.appendChild(cartItemContentSettingsDeleteDiv);
@@ -114,7 +136,7 @@ function displayCart(productList) {
 
         deleteItem.addEventListener('click', (event) => {
 
-            // On récupére l'id et la couleur du produit
+            // On récupére l'id et la couleur du produit 
 
             let id = cartItemArticle.dataset.id;
             let color = cartItemArticle.dataset.color;
@@ -129,8 +151,8 @@ function displayCart(productList) {
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea)),
 
                 location.reload();
-        })
+        });
 
-    }
+    };
 
 };
