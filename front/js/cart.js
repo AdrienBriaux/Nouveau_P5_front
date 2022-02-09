@@ -33,6 +33,10 @@ getProductCard();
 function displayCart(productList) {
 
     // Pour chaque objets dans l'array liste du panier
+    // Si la couleur et l'id du produit sont les mêmes
+
+
+
 
     for (let item in productList) {
 
@@ -97,6 +101,7 @@ function displayCart(productList) {
         InputModifyProduct.setAttribute('max', "100");
         InputModifyProduct.setAttribute('value', localStorageArea[item].quantityChoice);
 
+
         let cartItemContentSettingsDeleteDiv = document.createElement('div');
         cardItemContentSettingsDiv.appendChild(cartItemContentSettingsDeleteDiv);
         cartItemContentSettingsDeleteDiv.className = 'cart__item__content__settings__delete';
@@ -105,23 +110,27 @@ function displayCart(productList) {
         cartItemContentSettingsDeleteDiv.appendChild(deleteItem);
         deleteItem.textContent = 'Supprimer';
 
+        // Au clic on suprime le produit dans le local storage
+
+        deleteItem.addEventListener('click', (event) => {
+
+            // On récupére l'id et la couleur du produit
+
+            let id = cartItemArticle.dataset.id;
+            let color = cartItemArticle.dataset.color;
+
+
+            // On filtre les produits qui ne sont pas identique
+
+            localStorageArea = localStorageArea.filter(el => el.productId !== id || el.colorChoice !== color);
+
+            // On sauvegarde le résultat dans le local storage
+
+            localStorage.setItem('productStorage', JSON.stringify(localStorageArea)),
+
+                location.reload();
+        })
+
     }
 
 };
-
-
-// Modifier la quantité de produit
-
-function modifyQuantity() {
-
-    btnSelectQuantity = document.querySelector('.itemQuantity');
-
-    btnSelectQuantity.addEventListener('change', function () {
-
-        let quantitySelected = input.value;
-        console.log(quantitySelected);
-    });
-
-};
-
-modifyQuantity();
