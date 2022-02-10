@@ -108,8 +108,6 @@ function displayCart(productList) {
 
             let resultQuantity = inputModifyProduct.value;
 
-
-
             // On cherche le produit dont la valeur à changé
 
             const productFound = localStorageArea.find(el => el.quantityChoice !== resultQuantity && el.productId == idProduct && el.colorChoice == color);
@@ -141,9 +139,10 @@ function displayCart(productList) {
 
             // On sauvegarde le résultat dans le local storage
 
-            localStorage.setItem('productStorage', JSON.stringify(localStorageArea)),
+            cartItemArticle.remove();
 
-                location.reload();
+            localStorage.setItem('productStorage', JSON.stringify(localStorageArea))
+
         });
 
     };
