@@ -159,9 +159,15 @@ function displayCart(productList) {
 
 const form = document.getElementsByClassName('cart__order__form');
 const firstName = document.getElementById('firstName');
+const lastName = document.getElementById('lastName');
+const address = document.getElementById('address');
+const city = document.getElementById('city');
+const email = document.getElementById('email');
+const order = document.getElementById('order');
+
 // On écoute les modifications des champs de saisies du formulaire
 
-// Input prénom
+// Input du prénom
 
 firstName.addEventListener('change', function () {
 
