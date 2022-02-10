@@ -33,10 +33,6 @@ getProductCard();
 function displayCart(productList) {
 
     // Pour chaque objets dans l'array liste du panier
-    // Si la couleur et l'id du produit sont les mêmes
-
-
-
 
     for (let item in productList) {
 
@@ -102,9 +98,10 @@ function displayCart(productList) {
         inputModifyProduct.setAttribute('max', "100");
         inputModifyProduct.setAttribute('value', localStorageArea[item].quantityChoice);
 
+
         // Au changement de la quantité du produit
 
-        inputModifyProduct.addEventListener('change', () => {
+        inputModifyProduct.addEventListener('change', (event) => {
 
             let resultQuantity = inputModifyProduct.value;
 
@@ -129,6 +126,7 @@ function displayCart(productList) {
         cartItemContentSettingsDeleteDiv.appendChild(deleteItem);
         deleteItem.textContent = 'Supprimer';
 
+
         // Au clic on suprime le produit dans le local storage
 
         deleteItem.addEventListener('click', (event) => {
@@ -141,10 +139,42 @@ function displayCart(productList) {
 
             cartItemArticle.remove();
 
-            localStorage.setItem('productStorage', JSON.stringify(localStorageArea))
+            localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
+
+            return;
 
         });
 
     };
 
+};
+
+// Affichage du prix total des articles
+
+
+
+// Validation des inputs //
+
+// On cible les inputs dans le DOM
+
+const form = document.getElementsByClassName('cart__order__form');
+const firstName = document.getElementById('firstName');
+// On écoute les modifications des champs de saisies du formulaire
+
+// Input prénom
+
+firstName.addEventListener('change', function () {
+
+    validName(this);
+});
+
+const validName = function (inputText) {
+
+    // Regex pour la validation des inputs qui doivent contenir uniquement des lettres
+
+    let nameRegexp = new RegExp('[a-zA-Z]+', 'g');
+
+    let testName = nameRegexp.test(inputText.value);
+
+    console.log(testName);
 };
