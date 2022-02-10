@@ -175,6 +175,14 @@ const validName = function (inputText) {
     let nameRegexp = new RegExp('[a-zA-Z]+', 'g');
 
     let testName = nameRegexp.test(inputText.value);
-
+    let messErrFirstName = document.getElementById('firstNameErrorMsg');
     console.log(testName);
+
+    if (testName) {
+
+        return;
+    }
+
+    messErrFirstName.innerHTML = "Le prénom n'est pas valide";
+
 };
