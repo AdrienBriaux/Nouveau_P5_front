@@ -22,6 +22,7 @@ async function getProductCard() {
     }
 
     displayCart(productList);
+    totalCartPrice(productList);
     console.log('liste des produits', productList);
 };
 
@@ -75,6 +76,7 @@ function displayCart(productList) {
 
         let productPrice = document.createElement('p');
         cartItemContentDescriptionDiv.appendChild(productPrice);
+        productPrice.className = 'price';
         productPrice.textContent = product.price + ' €';
 
         let cardItemContentSettingsDiv = document.createElement('div');
@@ -145,13 +147,27 @@ function displayCart(productList) {
 
         });
 
+
     };
 
 };
 
-// Affichage du prix total des articles
+// Affichage du prix total du panier
 
 
+function totalCartPrice(productList) {
+
+    let total = 0;
+
+    for (let p = 0; p < productList.length; p++) {
+
+        let productPrice = productList[p].price;
+        let quantity = productStorageArea.quantityChoice;
+        total = quantity * productPrice;
+    };
+
+    console.log(total);
+};
 
 // Validation des inputs //
 
@@ -165,30 +181,98 @@ const city = document.getElementById('city');
 const email = document.getElementById('email');
 const order = document.getElementById('order');
 
+// Déclaration des regexp 
+
+let nameRegexp = new RegExp('[a-zA-Z]{4,60}');
+let addressRegexp = new RegExp('[a-zA-Z0-9]{4,60}');
+
 // On écoute les modifications des champs de saisies du formulaire
 
 // Input du prénom
 
 firstName.addEventListener('change', function () {
 
-    validName(this);
+    validFirstName(this);
 });
 
-const validName = function (inputText) {
+const validFirstName = function (inputText) {
 
-    // Regex pour la validation des inputs qui doivent contenir uniquement des lettres
-
-    let nameRegexp = new RegExp('[a-zA-Z]+', 'g');
-
-    let testName = nameRegexp.test(inputText.value);
+    let testFirstName = nameRegexp.test(inputText.value);
     let messErrFirstName = document.getElementById('firstNameErrorMsg');
-    console.log(testName);
+    console.log(testFirstName);
 
-    if (testName) {
+    if (testFirstName) {
 
         return;
     }
 
-    messErrFirstName.innerHTML = "Le prénom n'est pas valide";
+    messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
 
 };
+
+// Input du nom
+
+lastName.addEventListener('change', function () {
+
+    validLastName(this);
+});
+
+const validLastName = function (inputText) {
+
+    let testLastName = nameRegexp.test(inputText.value);
+    let messErrLastName = document.getElementById('lastNameErrorMsg');
+    console.log(testLastName);
+
+    if (testLastName) {
+
+        return;
+    }
+
+    messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
+
+};
+
+// Input de l'adresse
+
+address.addEventListener('change', function () {
+
+    validAddress(this);
+});
+
+const validAddress = function (inputText) {
+
+    let testAddress = addressRegexp.test(inputText.value);
+    let messErrAddress = document.getElementById('addressErrorMsg');
+    console.log(addressErrorMsg)
+
+    if (testAddress) {
+
+        return;
+    }
+
+    messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 5 caractères et maximum 60 caractères";
+
+};
+
+// Input Ville
+
+city.addEventListener('change', function () {
+
+    validCity(this);
+});
+
+const validCity = function (inputText) {
+
+    let testCity = nameRegexp.test(inputText.value);
+    let messErrCity = document.getElementById('cityErrorMsg');
+    console.log(messErrCity)
+
+    if (testCity) {
+
+        return;
+    }
+
+    messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
+
+};
+
