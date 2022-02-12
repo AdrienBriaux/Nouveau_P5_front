@@ -31,6 +31,7 @@ getProductCard();
 
 ///////////// Intégration dynamique des éléments dans le DOM ////////////////
 
+
 function displayCart(productList) {
 
     // Pour chaque objets dans l'array liste du panier
@@ -40,6 +41,7 @@ function displayCart(productList) {
         const product = productList[item];
         const idProduct = product._id;
         const color = localStorageArea[item].colorChoice;
+        const quantity = localStorageArea[item].quantityChoice;
 
         // Insertion dynamique des éléments
 
@@ -72,7 +74,7 @@ function displayCart(productList) {
 
         let productColor = document.createElement('p');
         cartItemContentDescriptionDiv.appendChild(productColor);
-        productColor.textContent = product.colorChoice;
+        productColor.textContent = color;
 
         let productPrice = document.createElement('p');
         cartItemContentDescriptionDiv.appendChild(productPrice);
@@ -98,7 +100,7 @@ function displayCart(productList) {
         inputModifyProduct.setAttribute('name', 'itemQuantity');
         inputModifyProduct.setAttribute('min', "1");
         inputModifyProduct.setAttribute('max', "100");
-        inputModifyProduct.setAttribute('value', product.quantityChoice);
+        inputModifyProduct.setAttribute('value', quantity);
 
 
         // Au changement de la quantité du produit
@@ -144,7 +146,7 @@ function displayCart(productList) {
             cartItemArticle.remove();
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
-            
+
             totalCartPrice(productList);
 
             return;
@@ -161,16 +163,17 @@ function displayCart(productList) {
 
 function totalCartPrice(productList) {
 
-    let total = 0;
+    let totalPrice = document.getElementById('totalPrice');
 
     for (let p = 0; p < productList[p].length; p++) {
 
         let productPrice = productList[p].price;
-        let quantity = productStorage[p].quantityChoice;
-        total = quantity * productPrice;
+        let quantity = inputModifyProduct.value;
+        totalPrice = quantity * productPrice;
+
     };
 
-    console.log(total);
+    console.log(totalPrice.value);
 };
 
 //////////// Validation des inputs ///////////////////////////////
