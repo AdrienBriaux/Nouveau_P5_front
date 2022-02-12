@@ -29,7 +29,7 @@ async function getProductCard() {
 getProductCard();
 
 
-// //Intégration dynamique des éléments dans le DOM
+///////////// Intégration dynamique des éléments dans le DOM ////////////////
 
 function displayCart(productList) {
 
@@ -47,7 +47,7 @@ function displayCart(productList) {
         document.getElementById('cart__items').appendChild(cartItemArticle);
         cartItemArticle.className = 'cart__item';
         cartItemArticle.setAttribute('data-id', idProduct);
-        cartItemArticle.setAttribute('data-color', localStorageArea[item].colorChoice);
+        cartItemArticle.setAttribute('data-color', product.colorChoice);
 
         let cartItemImgDiv = document.createElement('div');
         cartItemArticle.appendChild(cartItemImgDiv);
@@ -72,7 +72,7 @@ function displayCart(productList) {
 
         let productColor = document.createElement('p');
         cartItemContentDescriptionDiv.appendChild(productColor);
-        productColor.textContent = localStorageArea[item].colorChoice;
+        productColor.textContent = product.colorChoice;
 
         let productPrice = document.createElement('p');
         cartItemContentDescriptionDiv.appendChild(productPrice);
@@ -98,7 +98,7 @@ function displayCart(productList) {
         inputModifyProduct.setAttribute('name', 'itemQuantity');
         inputModifyProduct.setAttribute('min', "1");
         inputModifyProduct.setAttribute('max', "100");
-        inputModifyProduct.setAttribute('value', localStorageArea[item].quantityChoice);
+        inputModifyProduct.setAttribute('value', product.quantityChoice);
 
 
         // Au changement de la quantité du produit
@@ -109,11 +109,13 @@ function displayCart(productList) {
 
             // On cherche le produit dont la valeur à changé
 
-            const productFound = localStorageArea.find(el => el.quantityChoice !== resultQuantity && el.productId == idProduct && el.colorChoice == color);
+            const productFound = localStorageArea.find(el => el.quantityChoice !== resultQuantity);
 
             productFound.quantityChoice = resultQuantity;
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
+
+            totalCartPrice(productList);
 
             return;
 
@@ -142,6 +144,8 @@ function displayCart(productList) {
             cartItemArticle.remove();
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
+            
+            totalCartPrice(productList);
 
             return;
 
@@ -159,17 +163,17 @@ function totalCartPrice(productList) {
 
     let total = 0;
 
-    for (let p = 0; p < productList.length; p++) {
+    for (let p = 0; p < productList[p].length; p++) {
 
         let productPrice = productList[p].price;
-        let quantity = productStorageArea.quantityChoice;
+        let quantity = productStorage[p].quantityChoice;
         total = quantity * productPrice;
     };
 
     console.log(total);
 };
 
-// Validation des inputs //
+//////////// Validation des inputs ///////////////////////////////
 
 // On cible les inputs dans le DOM
 
@@ -250,7 +254,7 @@ const validAddress = function (inputText) {
         return;
     }
 
-    messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 5 caractères et maximum 60 caractères";
+    messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
 
 };
 
