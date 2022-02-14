@@ -111,7 +111,7 @@ function displayCart(productList) {
 
             // On cherche le produit dont la valeur à changé
 
-            const productFound = localStorageArea.find(el => el.quantityChoice !== resultQuantity);
+            const productFound = localStorageArea.find(el => el.quantityChoice !== resultQuantity && el.productId == idProduct && el.colorChoice == color);
 
             productFound.quantityChoice = resultQuantity;
 
