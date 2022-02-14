@@ -158,22 +158,39 @@ function displayCart(productList) {
 
 };
 
-// Affichage du prix total du panier
+// Affichage du prix total du panier et du nombre d'article
 
 
 function totalCartPrice(productList) {
 
-    let totalPrice = document.getElementById('totalPrice');
+    let totalPriceDisplay = document.getElementById('totalPrice');
+    let totalQuantityDisplay = document.getElementById('totalQuantity');
+    let quantityArticle = document.getElementsByClassName('itemQuantity')
+    let totalPrice = 0;
+    let totalQuantity = 0;
 
-    for (let p = 0; p < productList[p].length; p++) {
+    // Quantité total
 
-        let productPrice = productList[p].price;
-        let quantity = inputModifyProduct.value;
-        totalPrice = quantity * productPrice;
+    for (let p = 0; p < quantityArticle.length; p++) {
 
+        totalQuantity += JSON.parse(quantityArticle[p].value);
     };
 
-    console.log(totalPrice.value);
+    totalQuantityDisplay.innerHTML = totalQuantity;
+
+    console.log(totalQuantity);
+
+    // Prix total
+
+    for (let i in productList) {
+
+        totalPrice += JSON.parse(productList[i].price);
+    }
+
+    totalPriceDisplay.innerHTML = totalPrice;
+
+    console.log(totalPrice);
+
 };
 
 //////////// Validation des inputs ///////////////////////////////
