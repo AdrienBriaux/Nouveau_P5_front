@@ -184,7 +184,7 @@ function totalCartPrice(productList) {
 
     for (let i in productList) {
 
-        totalPrice += JSON.parse(productList[i].price);
+        totalPrice += JSON.parse(productList[i].price) * JSON.parse(quantityArticle[i].value);
     }
 
     totalPriceDisplay.innerHTML = totalPrice;
