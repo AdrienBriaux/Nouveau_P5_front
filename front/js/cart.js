@@ -22,7 +22,7 @@ async function getProductCard() {
     }
 
     displayCart(productList);
-    totalCartPrice(productList);
+    totalCartPrice(localStorageArea);
     console.log('liste des produits', productList);
 };
 
@@ -117,7 +117,7 @@ function displayCart(productList) {
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
-            totalCartPrice(productList);
+            totalCartPrice(localStorageArea);
 
             return;
 
@@ -147,7 +147,7 @@ function displayCart(productList) {
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
-            totalCartPrice(productList);
+            totalCartPrice(localStorageArea);
 
             return;
 
@@ -161,19 +161,19 @@ function displayCart(productList) {
 // Affichage du prix total du panier et du nombre d'article
 
 
-function totalCartPrice(productList) {
+function totalCartPrice(localStorageArea) {
 
     let totalPriceDisplay = document.getElementById('totalPrice');
     let totalQuantityDisplay = document.getElementById('totalQuantity');
-    let quantityArticle = document.getElementsByClassName('itemQuantity')
+    
     let totalPrice = 0;
     let totalQuantity = 0;
 
     // Quantité total
 
-    for (let p = 0; p < quantityArticle.length; p++) {
+    for (let p in localStorageArea) {
 
-        totalQuantity += JSON.parse(quantityArticle[p].value);
+        totalQuantity += JSON.parse(localStorageArea[p].quantityChoice);
     };
 
     totalQuantityDisplay.innerHTML = totalQuantity;
@@ -182,9 +182,9 @@ function totalCartPrice(productList) {
 
     // Prix total
 
-    for (let i in productList) {
+    for (let i in localStorageArea) {
 
-        totalPrice += JSON.parse(productList[i].price) * JSON.parse(quantityArticle[i].value);
+        totalPrice += JSON.parse(localStorageArea[i].price) * JSON.parse(localStorageArea[i].quantityChoice);
     }
 
     totalPriceDisplay.innerHTML = totalPrice;

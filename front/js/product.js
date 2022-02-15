@@ -1,8 +1,8 @@
 //Récupération des données du produit
 
-var str = window.location.href;
-var url = new URL(str);
-var productId = url.searchParams.get("id");
+let str = window.location.href;
+let url = new URL(str);
+let productId = url.searchParams.get("id");
 
 
 //Charger la page avec le produit selectionné
@@ -76,6 +76,9 @@ function addToCart() {
         let quantityChoice = document.getElementById('quantity');
         quantityChoice = quantityChoice.value;
 
+        let price = document.getElementById('price');
+        price = price.textContent;
+
         if (quantityChoice <= 0 || !colorChoice) {
             alert('Vous devez remplir une couleur et la quantité');
             return;
@@ -87,8 +90,8 @@ function addToCart() {
 
             productId: productId,
             colorChoice: colorChoice,
-            quantityChoice: quantityChoice
-
+            quantityChoice: quantityChoice,
+            price : price
         };
 
 
@@ -110,13 +113,13 @@ function addToCart() {
             // Si l'élément existe on incrémente la quantité selectionné à ce même produit
 
             if (found) {
-                
+
                 const quantity = parseInt(found.quantityChoice) + parseInt(quantityChoice);
                 found.quantityChoice = quantity;
                 localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
                 return;
             }
-            
+
             // Sinon on stock les informations du nouveau produit dans le tableau du local storage
 
             localStorageArea.push(productOption);
