@@ -165,7 +165,7 @@ function totalCartPrice(localStorageArea) {
 
     let totalPriceDisplay = document.getElementById('totalPrice');
     let totalQuantityDisplay = document.getElementById('totalQuantity');
-    
+
     let totalPrice = 0;
     let totalQuantity = 0;
 
@@ -207,8 +207,8 @@ const order = document.getElementById('order');
 
 // Déclaration des regexp 
 
-let nameRegexp = new RegExp('[a-zA-Z]{4,60}');
-let addressRegexp = new RegExp('[a-zA-Z0-9]{4,60}');
+let nameRegexp = new RegExp('[^A-Za-zéè\D]+', 'g');
+let addressRegexp = new RegExp('[a-zA-Z0-9éè]+');
 
 // On écoute les modifications des champs de saisies du formulaire
 
@@ -227,10 +227,11 @@ const validFirstName = function (inputText) {
 
     if (testFirstName) {
 
+        messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
         return;
     }
 
-    messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
+    messErrFirstName.innerHTML = '';
 
 };
 
@@ -249,10 +250,11 @@ const validLastName = function (inputText) {
 
     if (testLastName) {
 
+        messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
         return;
     }
 
-    messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
+    messErrLastName.innerHTML = '';
 
 };
 
@@ -271,10 +273,11 @@ const validAddress = function (inputText) {
 
     if (testAddress) {
 
+        messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
         return;
     }
 
-    messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
+    messErrAddress.innerHTML = '';
 
 };
 
@@ -293,10 +296,11 @@ const validCity = function (inputText) {
 
     if (testCity) {
 
+        messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
         return;
     }
 
-    messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
+    messErrCity.innerHTML = '';
 
 };
 
