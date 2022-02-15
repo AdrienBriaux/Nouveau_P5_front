@@ -208,9 +208,11 @@ const order = document.getElementById('order');
 // Déclaration des regexp 
 
 let nameRegexp = new RegExp('[^A-Za-zéè\D]+', 'g');
-let addressRegexp = new RegExp('[a-zA-Z0-9éè]+');
+let addressRegexp = new RegExp('^[a-zA-Z0-9\s,.-]{3,60}$');
+let emailRegexp = new RegExp('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$');
 
 // On écoute les modifications des champs de saisies du formulaire
+// On test l'expression réguliére avec le champs du formulaire
 
 // Input du prénom
 
@@ -269,7 +271,7 @@ const validAddress = function (inputText) {
 
     let testAddress = addressRegexp.test(inputText.value);
     let messErrAddress = document.getElementById('addressErrorMsg');
-    console.log(addressErrorMsg)
+    console.log(testAddress)
 
     if (testAddress) {
 
@@ -292,7 +294,7 @@ const validCity = function (inputText) {
 
     let testCity = nameRegexp.test(inputText.value);
     let messErrCity = document.getElementById('cityErrorMsg');
-    console.log(messErrCity)
+    console.log(testCity)
 
     if (testCity) {
 
@@ -304,3 +306,25 @@ const validCity = function (inputText) {
 
 };
 
+// Input email
+
+email.addEventListener('change', function () {
+
+    validEmail(this);
+});
+
+const validEmail = function (inputText) {
+
+    let testEmail = emailRegexp.test(inputText.value);
+    let messErrEmail = document.getElementById('emailErrorMsg');
+    console.log(testEmail)
+
+    if (testEmail) {
+
+        messErrEmail.innerHTML = "L'adresse email n'est pas valide";
+        return;
+    }
+
+    messErrEmail.innerHTML = '';
+
+};
