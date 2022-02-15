@@ -328,3 +328,34 @@ const validEmail = function (inputText) {
     messErrEmail.innerHTML = '';
 
 };
+
+/////////////// Envoi du formulaire  ////////////////
+
+function sendForm() {
+
+    const formOrder = document.getElementById('order');
+
+    formOrder.addEventListener('click', (event) => {
+
+        // Création d'un objet contact
+
+        let contactObject = {
+
+            Prénom: firstName.value,
+            Nom: lastName.value,
+            Adresse: address.value,
+            Ville: city.value,
+            Email: email.value
+        };
+        console.log(contactObject);
+
+        // Création du tableau de produit
+
+        let ProductTable = [];
+
+        ProductTable.push(productList);
+
+    });
+};
+
+sendForm();
