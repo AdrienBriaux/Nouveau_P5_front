@@ -120,7 +120,7 @@ function displayCart(productList) {
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
-            totalCartPrice();
+            totalCartPrice(productListFromApi);
 
             return;
 
@@ -150,7 +150,7 @@ function displayCart(productList) {
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
-            totalCartPrice();
+            totalCartPrice(productListFromApi);
 
             return;
 
