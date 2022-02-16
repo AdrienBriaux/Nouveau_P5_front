@@ -237,11 +237,11 @@ function ValidForm() {
         if (testFirstName) {
 
             messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-            return;
+            return true;
         }
 
         messErrFirstName.innerHTML = '';
-
+        return false;
     };
 
     // Input du nom
@@ -260,11 +260,11 @@ function ValidForm() {
         if (testLastName) {
 
             messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
-            return;
+            return true;
         }
 
         messErrLastName.innerHTML = '';
-
+        return false;
     };
 
     // Input de l'adresse
@@ -283,11 +283,11 @@ function ValidForm() {
         if (testAddress) {
 
             messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
-            return testAddress;
+            return true;
         }
 
         messErrAddress.innerHTML = '';
-
+        return false;
     };
 
     // Input Ville
@@ -306,11 +306,11 @@ function ValidForm() {
         if (testCity) {
 
             messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
-            return;
+            return true;
         }
 
         messErrCity.innerHTML = '';
-
+        return false;
     };
 
     // Input email
@@ -318,27 +318,27 @@ function ValidForm() {
     email.addEventListener('input', function () {
 
         validEmail(this);
-
     });
 
     const validEmail = function (inputTextEmail) {
 
         let testEmail = emailRegexp.test(inputTextEmail.value);
+
         let messErrEmail = document.getElementById('emailErrorMsg');
         console.log('testEmail', testEmail)
 
         if (testEmail) {
 
             messErrEmail.innerHTML = "L'adresse email n'est pas valide";
-            return;
+            return true;
         }
 
         messErrEmail.innerHTML = '';
-
+        return false;
     };
 
-    let validInputs = Promise.all([testEmail, testFirstName, testCity, testAddress, testLastName]);
-    console.log(validInputs);
+    let validInputs = Promise.all([validEmail, validFirstName, validLastName, validCity, validAddress]);
+    console.log('validInputs', validInputs);
 };
 
 /////////////// Envoi du formulaire  ////////////////
@@ -353,7 +353,31 @@ function sendForm() {
 
     formInputs.addEventListener('submit', function (e) {
 
-        let error;
+
+        // Création de l'objet contact
+
+        let contact = {
+
+            firstName: formInputs.firstName.value,
+            lastName: formInputs.lastName.value,
+            address: formInputs.address.value,
+            city: formInputs.city.value,
+            email: formInputs.email.value
+        }
+
+        // Création de l'array des ID de produits commandé
+
+        let products = [''];
+
+        // Pour chaque produit dans le local storage on récupére son ID
+
+        for (let p in localStorageArea) {
+
+
+        
+            const productId = localStorageArea[p].productId;
+            products.push(productId);
+        }
 
         if (error) {
 
