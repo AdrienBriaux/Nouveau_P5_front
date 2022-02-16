@@ -76,8 +76,6 @@ function addToCart() {
         let quantityChoice = document.getElementById('quantity');
         quantityChoice = quantityChoice.value;
 
-        let price = document.getElementById('price');
-        price = price.textContent;
 
         if (quantityChoice <= 0 || !colorChoice) {
             alert('Vous devez remplir une couleur et la quantité');
@@ -91,7 +89,6 @@ function addToCart() {
             productId: productId,
             colorChoice: colorChoice,
             quantityChoice: quantityChoice,
-            price : price
         };
 
 

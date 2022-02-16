@@ -1,4 +1,5 @@
 let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
+let productListFromApi = [];
 
 // Récupération des données des produits du panier par leur id
 
@@ -19,6 +20,8 @@ async function getProductCard() {
         const product = localStorageArea[p];
         const productFromApi = await getProductFromApi(product.productId);
         productList.push(productFromApi);
+        productListFromApi[product.productId] = productFromApi;
+        console.log(productListFromApi);
     }
 
     displayCart(productList);
