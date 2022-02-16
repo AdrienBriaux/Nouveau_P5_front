@@ -21,12 +21,12 @@ async function getProductCard() {
         const productFromApi = await getProductFromApi(product.productId);
         productList.push(productFromApi);
         productListFromApi[product.productId] = productFromApi;
-        console.log(productListFromApi);
+        console.log('productListFromApi', productListFromApi);
     }
 
     displayCart(productList);
-    totalCartPrice(localStorageArea);
-    console.log('liste des produits', productList);
+    totalCartPrice(productListFromApi);
+    console.log('productList', productList);
 };
 
 getProductCard();
@@ -120,7 +120,7 @@ function displayCart(productList) {
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
-            totalCartPrice(localStorageArea);
+            totalCartPrice();
 
             return;
 
@@ -150,7 +150,7 @@ function displayCart(productList) {
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
-            totalCartPrice(localStorageArea);
+            totalCartPrice();
 
             return;
 
@@ -164,7 +164,7 @@ function displayCart(productList) {
 // Affichage du prix total du panier et du nombre d'article
 
 
-function totalCartPrice(localStorageArea) {
+function totalCartPrice(productListFromApi) {
 
     let totalPriceDisplay = document.getElementById('totalPrice');
     let totalQuantityDisplay = document.getElementById('totalQuantity');
@@ -187,12 +187,13 @@ function totalCartPrice(localStorageArea) {
 
     for (let i in localStorageArea) {
 
-        totalPrice += JSON.parse(localStorageArea[i].price) * JSON.parse(localStorageArea[i].quantityChoice);
+        const product = localStorageArea[i].productId;
+        totalPrice += JSON.parse(productListFromApi[product].price) * JSON.parse(localStorageArea[i].quantityChoice);
     }
 
     totalPriceDisplay.innerHTML = totalPrice;
 
-    console.log(totalPrice);
+    console.log('totalPrice', totalPrice);
 
 };
 
@@ -344,11 +345,11 @@ function sendForm() {
 
         let contactObject = {
 
-            Prénom: firstName.value,
-            Nom: lastName.value,
-            Adresse: address.value,
-            Ville: city.value,
-            Email: email.value
+            firstName: firstName.value,
+            lastName: lastName.value,
+            address: address.value,
+            city: city.value,
+            email: email.value
         };
         console.log(contactObject);
 
