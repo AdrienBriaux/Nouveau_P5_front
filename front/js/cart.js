@@ -1,6 +1,7 @@
 let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
 let productListFromApi = [];
 
+
 // Récupération des données des produits du panier par leur id
 
 
@@ -181,14 +182,14 @@ function totalCartPrice(productListFromApi) {
 
     totalQuantityDisplay.innerHTML = totalQuantity;
 
-    console.log(totalQuantity);
+    console.log('totalQuantity', totalQuantity);
 
     // Prix total
 
     for (let i in localStorageArea) {
 
-        const product = localStorageArea[i].productId;
-        totalPrice += JSON.parse(productListFromApi[product].price) * JSON.parse(localStorageArea[i].quantityChoice);
+        const productId = localStorageArea[i].productId;
+        totalPrice += JSON.parse(productListFromApi[productId].price) * JSON.parse(localStorageArea[i].quantityChoice);
     }
 
     totalPriceDisplay.innerHTML = totalPrice;
@@ -199,167 +200,171 @@ function totalCartPrice(productListFromApi) {
 
 //////////// Validation des inputs ///////////////////////////////
 
-// On cible les inputs dans le DOM
+ValidForm();
 
-const form = document.getElementsByClassName('cart__order__form');
-const firstName = document.getElementById('firstName');
-const lastName = document.getElementById('lastName');
-const address = document.getElementById('address');
-const city = document.getElementById('city');
-const email = document.getElementById('email');
-const order = document.getElementById('order');
+function ValidForm() {
 
-// Déclaration des regexp 
+    // On cible les inputs dans le DOM
 
-let nameRegexp = new RegExp('[^A-Za-zéè\D]+', 'g');
-let addressRegexp = new RegExp('^[a-zA-Z0-9\s,.-]{3,60}$');
-let emailRegexp = new RegExp('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$');
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const address = document.getElementById('address');
+    const city = document.getElementById('city');
+    const email = document.getElementById('email');
 
-// On écoute les modifications des champs de saisies du formulaire
-// On test l'expression réguliére avec le champs du formulaire
+    // Déclaration des regexp 
 
-// Input du prénom
+    let nameRegexp = new RegExp('[^A-Za-zéè\D]+', 'g');
+    let addressRegexp = new RegExp('^[a-zA-Z0-9\s,.-]{3,60}$');
+    let emailRegexp = new RegExp('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$');
 
-firstName.addEventListener('change', function () {
+    // On écoute les modifications des champs de saisies du formulaire
+    // On test l'expression réguliére avec le champs du formulaire
 
-    validFirstName(this);
-});
+    // Input du prénom
 
-const validFirstName = function (inputText) {
+    firstName.addEventListener('input', function () {
 
-    let testFirstName = nameRegexp.test(inputText.value);
-    let messErrFirstName = document.getElementById('firstNameErrorMsg');
-    console.log(testFirstName);
+        validFirstName(this);
+    });
 
-    if (testFirstName) {
+    const validFirstName = function (inputText) {
 
-        messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-        return;
-    }
+        let testFirstName = nameRegexp.test(inputText.value);
+        let messErrFirstName = document.getElementById('firstNameErrorMsg');
+        console.log('testFirstName', testFirstName);
 
-    messErrFirstName.innerHTML = '';
+        if (testFirstName) {
 
-};
+            messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
+            return;
+        }
 
-// Input du nom
+        messErrFirstName.innerHTML = '';
 
-lastName.addEventListener('change', function () {
+    };
 
-    validLastName(this);
-});
+    // Input du nom
 
-const validLastName = function (inputText) {
+    lastName.addEventListener('input', function () {
 
-    let testLastName = nameRegexp.test(inputText.value);
-    let messErrLastName = document.getElementById('lastNameErrorMsg');
-    console.log(testLastName);
+        validLastName(this);
+    });
 
-    if (testLastName) {
+    const validLastName = function (inputText) {
 
-        messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
-        return;
-    }
+        let testLastName = nameRegexp.test(inputText.value);
+        let messErrLastName = document.getElementById('lastNameErrorMsg');
+        console.log('testLastName', testLastName);
 
-    messErrLastName.innerHTML = '';
+        if (testLastName) {
 
-};
+            messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
+            return;
+        }
 
-// Input de l'adresse
+        messErrLastName.innerHTML = '';
 
-address.addEventListener('change', function () {
+    };
 
-    validAddress(this);
-});
+    // Input de l'adresse
 
-const validAddress = function (inputText) {
+    address.addEventListener('input', function () {
 
-    let testAddress = addressRegexp.test(inputText.value);
-    let messErrAddress = document.getElementById('addressErrorMsg');
-    console.log(testAddress)
+        validAddress(this);
+    });
 
-    if (testAddress) {
+    const validAddress = function (inputText) {
 
-        messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
-        return;
-    }
+        let testAddress = addressRegexp.test(inputText.value);
+        let messErrAddress = document.getElementById('addressErrorMsg');
+        console.log('testAddress', testAddress)
 
-    messErrAddress.innerHTML = '';
+        if (testAddress) {
 
-};
+            messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
+            return testAddress;
+        }
 
-// Input Ville
+        messErrAddress.innerHTML = '';
 
-city.addEventListener('change', function () {
+    };
 
-    validCity(this);
-});
+    // Input Ville
 
-const validCity = function (inputText) {
+    city.addEventListener('input', function () {
 
-    let testCity = nameRegexp.test(inputText.value);
-    let messErrCity = document.getElementById('cityErrorMsg');
-    console.log(testCity)
+        validCity(this);
+    });
 
-    if (testCity) {
+    const validCity = function (inputText) {
 
-        messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
-        return;
-    }
+        let testCity = nameRegexp.test(inputText.value);
+        let messErrCity = document.getElementById('cityErrorMsg');
+        console.log('testCity', testCity)
 
-    messErrCity.innerHTML = '';
+        if (testCity) {
 
-};
+            messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
+            return;
+        }
 
-// Input email
+        messErrCity.innerHTML = '';
 
-email.addEventListener('change', function () {
+    };
 
-    validEmail(this);
-});
+    // Input email
 
-const validEmail = function (inputText) {
+    email.addEventListener('input', function () {
 
-    let testEmail = emailRegexp.test(inputText.value);
-    let messErrEmail = document.getElementById('emailErrorMsg');
-    console.log(testEmail)
+        validEmail(this);
 
-    if (testEmail) {
+    });
 
-        messErrEmail.innerHTML = "L'adresse email n'est pas valide";
-        return;
-    }
+    const validEmail = function (inputTextEmail) {
 
-    messErrEmail.innerHTML = '';
+        let testEmail = emailRegexp.test(inputTextEmail.value);
+        let messErrEmail = document.getElementById('emailErrorMsg');
+        console.log('testEmail', testEmail)
 
+        if (testEmail) {
+
+            messErrEmail.innerHTML = "L'adresse email n'est pas valide";
+            return;
+        }
+
+        messErrEmail.innerHTML = '';
+
+    };
+
+    let validInputs = Promise.all([testEmail, testFirstName, testCity, testAddress, testLastName]);
+    console.log(validInputs);
 };
 
 /////////////// Envoi du formulaire  ////////////////
 
 function sendForm() {
 
-    const formOrder = document.getElementById('order');
+    // On cible le formulaire dans le DOM
 
-    formOrder.addEventListener('click', (event) => {
+    const formInputs = document.querySelector('.cart__order__form');
 
-        // Création d'un objet contact
+    // On écoute les inputs du formulaire lorsque l'on valide sont envoi
 
-        let contactObject = {
+    formInputs.addEventListener('submit', function (e) {
 
-            firstName: firstName.value,
-            lastName: lastName.value,
-            address: address.value,
-            city: city.value,
-            email: email.value
-        };
-        console.log(contactObject);
+        let error;
 
-        // Création du tableau de produit
+        if (error) {
 
-        let ProductTable = [];
+            e.preventDefault();
+            return false;
+        }
 
-        ProductTable.push(productList);
+        alert('Formulaire envoyé');
 
     });
+
 };
 
 sendForm();
