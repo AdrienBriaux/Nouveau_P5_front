@@ -228,22 +228,22 @@ function ValidForm() {
         validFirstName(this);
     });
 
+    let testFirstName = Boolean;
+
     let validFirstName = function (inputText) {
 
-        let testFirstName = nameRegexp.test(inputText.value);
+        testFirstName = nameRegexp.test(inputText.value);
         let messErrFirstName = document.getElementById('firstNameErrorMsg');
         console.log('testFirstName', testFirstName);
 
         if (testFirstName) {
 
             messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-            validFirstName = testFirstName;
-            return validFirstName;
+            return testFirstName;
         }
 
         messErrFirstName.innerHTML = '';
-        validFirstName = false;
-        return validFirstName;
+        return testFirstName;
     };
 
     // Input du nom
@@ -253,22 +253,21 @@ function ValidForm() {
         validLastName(this);
     });
 
+    let testLastName = Boolean;
     let validLastName = function (inputText) {
 
-        let testLastName = nameRegexp.test(inputText.value);
+        testLastName = nameRegexp.test(inputText.value);
         let messErrLastName = document.getElementById('lastNameErrorMsg');
         console.log('testLastName', testLastName);
 
         if (testLastName) {
 
             messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
-            validLastName = testLastName;
-            return validLastName;
+            return testLastName;
         }
 
         messErrLastName.innerHTML = '';
-        validLastName = false;
-        return validLastName;
+        return testLastName;
     };
 
     // Input de l'adresse
@@ -278,22 +277,21 @@ function ValidForm() {
         validAddress(this);
     });
 
+    let testAddress = Boolean;
     let validAddress = function (inputText) {
 
-        let testAddress = addressRegexp.test(inputText.value);
+        testAddress = addressRegexp.test(inputText.value);
         let messErrAddress = document.getElementById('addressErrorMsg');
         console.log('testAddress', testAddress)
 
         if (testAddress) {
 
             messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
-            validAddress = testAddress;
-            return validAddress;
+            return testAddress;
         }
 
         messErrAddress.innerHTML = '';
-        validAddress = false;
-        return validAddress;
+        return testAddress;
     };
 
     // Input Ville
@@ -303,22 +301,22 @@ function ValidForm() {
         validCity(this);
     });
 
+    let testCity = Boolean;
+
     let validCity = function (inputText) {
 
-        let testCity = nameRegexp.test(inputText.value);
+        testCity = nameRegexp.test(inputText.value);
         let messErrCity = document.getElementById('cityErrorMsg');
         console.log('testCity', testCity)
 
         if (testCity) {
 
             messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
-            validCity = testCity;
-            return validCity;
+            return testCity;
         }
 
         messErrCity.innerHTML = '';
-        validCity = false;
-        return validCity;
+        return testCity;
     };
 
     // Input email
@@ -327,10 +325,10 @@ function ValidForm() {
 
         validEmail(this);
     });
+    let testEmail = Boolean;
+    const validEmail = function (inputTextEmail) {
 
-    let validEmail = function (inputTextEmail) {
-
-        let testEmail = emailRegexp.test(inputTextEmail.value);
+        testEmail = emailRegexp.test(inputTextEmail.value);
 
         let messErrEmail = document.getElementById('emailErrorMsg');
         console.log('testEmail', testEmail)
@@ -338,16 +336,16 @@ function ValidForm() {
         if (testEmail) {
 
             messErrEmail.innerHTML = "L'adresse email n'est pas valide";
-            validEmail = testEmail;
-            return validEmail;
+
+            return testEmail;
         }
 
         messErrEmail.innerHTML = '';
-        validEmail = false;
-        return validEmail;
+
+        return testEmail;
     };
 
-    let response = Promise.all([validEmail, validFirstName, validLastName, validCity, validAddress])
+    let response = Promise.all([testEmail, testLastName, testCity, testFirstName, testAddress])
 
         .then(values => {
 
