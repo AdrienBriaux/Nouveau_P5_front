@@ -1,6 +1,6 @@
 let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
 let productListFromApi = [];
-
+let response = Boolean;
 
 // Récupération des données des produits du panier par leur id
 
@@ -239,11 +239,11 @@ function ValidForm() {
         if (testFirstName) {
 
             messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-            return testFirstName;
+            return ValidationResult(testFirstName);
         }
 
         messErrFirstName.innerHTML = '';
-        return testFirstName;
+        return ValidationResult(testFirstName);
     };
 
     // Input du nom
@@ -263,11 +263,11 @@ function ValidForm() {
         if (testLastName) {
 
             messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
-            return testLastName;
+            return ValidationResult(testLastName);
         }
 
         messErrLastName.innerHTML = '';
-        return testLastName;
+        return ValidationResult(testLastName);
     };
 
     // Input de l'adresse
@@ -287,11 +287,11 @@ function ValidForm() {
         if (testAddress) {
 
             messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
-            return testAddress;
+            return ValidationResult(testAddress);
         }
 
         messErrAddress.innerHTML = '';
-        return testAddress;
+        return ValidationResult(testAddress);
     };
 
     // Input Ville
@@ -312,11 +312,11 @@ function ValidForm() {
         if (testCity) {
 
             messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
-            return testCity;
+            return ValidationResult(testCity);
         }
 
         messErrCity.innerHTML = '';
-        return testCity;
+        return ValidationResult(testCity);
     };
 
     // Input email
@@ -337,27 +337,38 @@ function ValidForm() {
 
             messErrEmail.innerHTML = "L'adresse email n'est pas valide";
 
-            return testEmail;
+            return ValidationResult(testEmail);
         }
 
         messErrEmail.innerHTML = '';
 
-        return testEmail;
+        return ValidationResult(testEmail);
     };
 
-    let response = Promise.all([testEmail, testLastName, testCity, testFirstName, testAddress])
+    function ValidationResult() {
 
-        .then(values => {
+        Promise.all([testEmail, testLastName, testCity, testFirstName, testAddress])
 
-            values.find(el => el.value == true);
-            if (values) {
-                return response = true;
-            }
+            .then(values => {
 
-            return response = false;
-        });
+                console.log('values', values);
 
-    console.log('valeurs de la reponse', response);
+                values.find(el => el.value === true);
+
+                if (values) {
+
+                    response = true;
+                    return sendForm(response);
+
+
+                }
+
+                response = false;
+                return sendForm(response);
+
+            });
+
+    };
 };
 
 /////////////// Envoi du formulaire  ////////////////
