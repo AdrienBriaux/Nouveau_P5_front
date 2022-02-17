@@ -223,12 +223,12 @@ function ValidForm() {
 
     // Input du prénom
 
-    firstName.addEventListener('input', function () {
+    firstName.addEventListener('input', async function () {
 
         validFirstName(this);
     });
 
-    const validFirstName = function (inputText) {
+    let validFirstName = function (inputText) {
 
         let testFirstName = nameRegexp.test(inputText.value);
         let messErrFirstName = document.getElementById('firstNameErrorMsg');
@@ -237,11 +237,13 @@ function ValidForm() {
         if (testFirstName) {
 
             messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-            return true;
+            validFirstName = testFirstName;
+            return validFirstName;
         }
 
         messErrFirstName.innerHTML = '';
-        return false;
+        validFirstName = false;
+        return validFirstName;
     };
 
     // Input du nom
@@ -251,7 +253,7 @@ function ValidForm() {
         validLastName(this);
     });
 
-    const validLastName = function (inputText) {
+    let validLastName = function (inputText) {
 
         let testLastName = nameRegexp.test(inputText.value);
         let messErrLastName = document.getElementById('lastNameErrorMsg');
@@ -260,11 +262,13 @@ function ValidForm() {
         if (testLastName) {
 
             messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
-            return true;
+            validLastName = testLastName;
+            return validLastName;
         }
 
         messErrLastName.innerHTML = '';
-        return false;
+        validLastName = false;
+        return validLastName;
     };
 
     // Input de l'adresse
@@ -274,7 +278,7 @@ function ValidForm() {
         validAddress(this);
     });
 
-    const validAddress = function (inputText) {
+    let validAddress = function (inputText) {
 
         let testAddress = addressRegexp.test(inputText.value);
         let messErrAddress = document.getElementById('addressErrorMsg');
@@ -283,11 +287,13 @@ function ValidForm() {
         if (testAddress) {
 
             messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
-            return true;
+            validAddress = testAddress;
+            return validAddress;
         }
 
         messErrAddress.innerHTML = '';
-        return false;
+        validAddress = false;
+        return validAddress;
     };
 
     // Input Ville
@@ -297,7 +303,7 @@ function ValidForm() {
         validCity(this);
     });
 
-    const validCity = function (inputText) {
+    let validCity = function (inputText) {
 
         let testCity = nameRegexp.test(inputText.value);
         let messErrCity = document.getElementById('cityErrorMsg');
@@ -306,11 +312,13 @@ function ValidForm() {
         if (testCity) {
 
             messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
-            return true;
+            validCity = testCity;
+            return validCity;
         }
 
         messErrCity.innerHTML = '';
-        return false;
+        validCity = false;
+        return validCity;
     };
 
     // Input email
@@ -320,7 +328,7 @@ function ValidForm() {
         validEmail(this);
     });
 
-    const validEmail = function (inputTextEmail) {
+    let validEmail = function (inputTextEmail) {
 
         let testEmail = emailRegexp.test(inputTextEmail.value);
 
@@ -330,15 +338,22 @@ function ValidForm() {
         if (testEmail) {
 
             messErrEmail.innerHTML = "L'adresse email n'est pas valide";
-            return true;
+            validEmail = testEmail;
+            return validEmail;
         }
 
         messErrEmail.innerHTML = '';
-        return false;
+        validEmail = false;
+        return validEmail;
     };
 
-    let validInputs = Promise.all([validEmail, validFirstName, validLastName, validCity, validAddress]);
-    console.log('validInputs', validInputs);
+    let response = Promise.all([validEmail, validFirstName, validLastName, validCity, validAddress])
+
+        .then(values => {
+
+            console.log('valeurs des inputs', values);
+        })
+
 };
 
 /////////////// Envoi du formulaire  ////////////////
@@ -374,7 +389,7 @@ function sendForm() {
         for (let p in localStorageArea) {
 
 
-        
+
             const productId = localStorageArea[p].productId;
             products.push(productId);
         }
