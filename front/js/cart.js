@@ -223,7 +223,7 @@ function ValidForm() {
 
     // Input du prénom
 
-    firstName.addEventListener('input', async function () {
+    firstName.addEventListener('input', function () {
 
         validFirstName(this);
     });
@@ -351,14 +351,20 @@ function ValidForm() {
 
         .then(values => {
 
-            console.log('valeurs des inputs', values);
-        })
+            values.find(el => el.value == true);
+            if (values) {
+                return response = true;
+            }
 
+            return response = false;
+        });
+
+    console.log('valeurs de la reponse', response);
 };
 
 /////////////// Envoi du formulaire  ////////////////
 
-function sendForm() {
+function sendForm(response) {
 
     // On cible le formulaire dans le DOM
 
