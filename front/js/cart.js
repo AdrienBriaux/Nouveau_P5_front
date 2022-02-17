@@ -254,6 +254,7 @@ function ValidForm() {
     });
 
     let testLastName = Boolean;
+
     let validLastName = function (inputText) {
 
         testLastName = nameRegexp.test(inputText.value);
@@ -278,6 +279,7 @@ function ValidForm() {
     });
 
     let testAddress = Boolean;
+
     let validAddress = function (inputText) {
 
         testAddress = addressRegexp.test(inputText.value);
@@ -325,7 +327,9 @@ function ValidForm() {
 
         validEmail(this);
     });
+
     let testEmail = Boolean;
+
     const validEmail = function (inputTextEmail) {
 
         testEmail = emailRegexp.test(inputTextEmail.value);
@@ -345,6 +349,8 @@ function ValidForm() {
         return ValidationResult(testEmail);
     };
 
+    // On récupére les valeurs des tests des inputs
+
     function ValidationResult() {
 
         Promise.all([testEmail, testLastName, testCity, testFirstName, testAddress])
@@ -353,36 +359,38 @@ function ValidForm() {
 
                 console.log('values', values);
 
-                values.find(el => el.value === true);
+                values.find(el => el.value == true);
 
                 if (values) {
 
                     response = true;
-                    return sendForm(response);
-
-
+                    sendForm(response);
                 }
 
                 response = false;
-                return sendForm(response);
-
+                sendForm(response);
             });
-
     };
 };
 
 /////////////// Envoi du formulaire  ////////////////
 
-function sendForm(response) {
+function sendForm() {
 
     // On cible le formulaire dans le DOM
 
     const formInputs = document.querySelector('.cart__order__form');
 
     // On écoute les inputs du formulaire lorsque l'on valide sont envoi
+    // Si les champs du formulaire sont valide
 
     formInputs.addEventListener('submit', function (e) {
 
+        if (response == true) {
+
+            alert('Le formulaire n\'est pas valide');
+            return;
+        };
 
         // Création de l'objet contact
 
@@ -416,9 +424,7 @@ function sendForm(response) {
         }
 
         alert('Formulaire envoyé');
-
     });
-
 };
 
 sendForm();
