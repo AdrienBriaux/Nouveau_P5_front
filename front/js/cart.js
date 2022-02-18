@@ -1,6 +1,5 @@
 let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
 let productListFromApi = [];
-let response = Boolean;
 
 // Récupération des données des produits du panier par leur id
 
@@ -204,6 +203,8 @@ ValidForm();
 
 function ValidForm() {
 
+    let results = [];
+    console.log('results', results);
     // On cible les inputs dans le DOM
 
     const firstName = document.getElementById('firstName');
@@ -228,7 +229,6 @@ function ValidForm() {
         validFirstName(this);
     });
 
-    let testFirstName = Boolean;
 
     let validFirstName = function (inputText) {
 
@@ -239,11 +239,11 @@ function ValidForm() {
         if (testFirstName) {
 
             messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-            return ValidationResult(testFirstName);
+            ValidationResult(testFirstName);
         }
 
         messErrFirstName.innerHTML = '';
-        return ValidationResult(testFirstName);
+        ValidationResult(testFirstName);
     };
 
     // Input du nom
@@ -253,7 +253,6 @@ function ValidForm() {
         validLastName(this);
     });
 
-    let testLastName = Boolean;
 
     let validLastName = function (inputText) {
 
@@ -264,11 +263,11 @@ function ValidForm() {
         if (testLastName) {
 
             messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
-            return ValidationResult(testLastName);
+            ValidationResult(testLastName);
         }
 
         messErrLastName.innerHTML = '';
-        return ValidationResult(testLastName);
+        ValidationResult(testLastName);
     };
 
     // Input de l'adresse
@@ -278,7 +277,6 @@ function ValidForm() {
         validAddress(this);
     });
 
-    let testAddress = Boolean;
 
     let validAddress = function (inputText) {
 
@@ -289,11 +287,11 @@ function ValidForm() {
         if (testAddress) {
 
             messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
-            return ValidationResult(testAddress);
+            ValidationResult(testAddress);
         }
 
         messErrAddress.innerHTML = '';
-        return ValidationResult(testAddress);
+        ValidationResult(testAddress);
     };
 
     // Input Ville
@@ -303,7 +301,6 @@ function ValidForm() {
         validCity(this);
     });
 
-    let testCity = Boolean;
 
     let validCity = function (inputText) {
 
@@ -314,11 +311,11 @@ function ValidForm() {
         if (testCity) {
 
             messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
-            return ValidationResult(testCity);
+            ValidationResult(testCity);
         }
 
         messErrCity.innerHTML = '';
-        return ValidationResult(testCity);
+        ValidationResult(testCity);
     };
 
     // Input email
@@ -328,7 +325,6 @@ function ValidForm() {
         validEmail(this);
     });
 
-    let testEmail = Boolean;
 
     const validEmail = function (inputTextEmail) {
 
@@ -340,34 +336,21 @@ function ValidForm() {
         if (testEmail) {
 
             messErrEmail.innerHTML = "L'adresse email n'est pas valide";
-
-            return ValidationResult(testEmail);
+            ValidationResult(testEmail)
         }
 
         messErrEmail.innerHTML = '';
-
-        return ValidationResult(testEmail);
+        ValidationResult(testEmail);
     };
 
-    // On récupére les valeurs des tests des inputs
+    function ValidationResult() {
 
-    async function ValidationResult() {
+        if (testEmail == true || testCity == true || testAddress == true || testLastName == true || testFirstName == true) {
 
-        Promise.all([testEmail, testLastName, testCity, testFirstName, testAddress]).then(values => {
+            let response = true;
+        }
 
-            values = JSON.stringify(values);
-
-            console.log('values', values);
-
-            values = values.filter(el => el === true);
-
-            if (values == true) {
-
-                return response = true;
-            }
-
-            return response = false;
-        });
+        let response = false;
     };
 };
 
@@ -382,48 +365,42 @@ function sendForm() {
     // On écoute les inputs du formulaire lorsque l'on valide sont envoi
     // Si les champs du formulaire sont valide
 
-    console.log('response', response);
     formInputs.addEventListener('submit', function (e) {
 
-        if (response == true) {
+        ValidationResult(response);
 
-            alert('Le formulaire n\'est pas valide');
-            return;
+        if (response) {
+
+            // Création de l'objet contact
+
+            let contact = {
+
+                firstName: formInputs.firstName.value,
+                lastName: formInputs.lastName.value,
+                address: formInputs.address.value,
+                city: formInputs.city.value,
+                email: formInputs.email.value
+            }
+
+            // Création de l'array des ID de produits commandé
+
+            let products = [''];
+
+            // Pour chaque produit dans le local storage on récupére son ID
+
+            for (let p in localStorageArea) {
+
+
+
+                const productId = localStorageArea[p].productId;
+                products.push(productId);
+            }
+
+            alert('Formulaire envoyé');
         };
 
-        // Création de l'objet contact
-
-        let contact = {
-
-            firstName: formInputs.firstName.value,
-            lastName: formInputs.lastName.value,
-            address: formInputs.address.value,
-            city: formInputs.city.value,
-            email: formInputs.email.value
-        }
-
-        // Création de l'array des ID de produits commandé
-
-        let products = [''];
-
-        // Pour chaque produit dans le local storage on récupére son ID
-
-        for (let p in localStorageArea) {
-
-
-
-            const productId = localStorageArea[p].productId;
-            products.push(productId);
-        }
-
-        if (error) {
-
-            e.preventDefault();
-            return false;
-        }
-
-        alert('Formulaire envoyé');
+        alert('Le formulaire n\'est pas valide');
+        e.preventDefault();
+        return;
     });
 };
-
-sendForm();
