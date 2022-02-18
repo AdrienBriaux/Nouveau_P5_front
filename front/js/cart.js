@@ -351,25 +351,23 @@ function ValidForm() {
 
     // On récupére les valeurs des tests des inputs
 
-    function ValidationResult() {
+    async function ValidationResult() {
 
-        Promise.all([testEmail, testLastName, testCity, testFirstName, testAddress])
+        Promise.all([testEmail, testLastName, testCity, testFirstName, testAddress]).then(values => {
 
-            .then(values => {
+            values = JSON.stringify(values);
 
-                console.log('values', values);
+            console.log('values', values);
 
-                values.find(el => el.value == true);
+            values = values.filter(el => el === true);
 
-                if (values) {
+            if (values == true) {
 
-                    response = true;
-                    sendForm(response);
-                }
+                return response = true;
+            }
 
-                response = false;
-                sendForm(response);
-            });
+            return response = false;
+        });
     };
 };
 
@@ -384,6 +382,7 @@ function sendForm() {
     // On écoute les inputs du formulaire lorsque l'on valide sont envoi
     // Si les champs du formulaire sont valide
 
+    console.log('response', response);
     formInputs.addEventListener('submit', function (e) {
 
         if (response == true) {
