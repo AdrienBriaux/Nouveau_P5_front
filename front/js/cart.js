@@ -213,7 +213,7 @@ function ValidForm() {
 
     // Déclaration des regexp 
 
-    let nameRegexp = new RegExp('^[A-Za-z-\s]+$');
+    let nameRegexp = new RegExp('^[a-zA-Z\D]+$');
     let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùç]+( [a-zA-Zéèàùç]+)+)$');
     let emailRegexp = new RegExp('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$');
 
@@ -250,9 +250,9 @@ function ValidForm() {
     });
 
 
-    let validLastName = function (inputText) {
+    let validLastName = function (inputTextLastName) {
 
-        testLastName = nameRegexp.test(inputText.value);
+        testLastName = nameRegexp.test(inputTextLastName.value);
         let messErrLastName = document.getElementById('lastNameErrorMsg');
         console.log('testLastName', testLastName);
 
@@ -272,9 +272,9 @@ function ValidForm() {
     });
 
 
-    let validAddress = function (inputText) {
+    let validAddress = function (inputTextAddress) {
 
-        testAddress = addressRegexp.test(inputText.value);
+        testAddress = addressRegexp.test(inputTextAddress.value);
         let messErrAddress = document.getElementById('addressErrorMsg');
         console.log('testAddress', testAddress)
 
@@ -294,9 +294,9 @@ function ValidForm() {
     });
 
 
-    let validCity = function (inputText) {
+    let validCity = function (inputTextCity) {
 
-        testCity = nameRegexp.test(inputText.value);
+        testCity = nameRegexp.test(inputTextCity.value);
         let messErrCity = document.getElementById('cityErrorMsg');
         console.log('testCity', testCity)
 
@@ -346,7 +346,7 @@ function sendForm() {
 
     formInputs.addEventListener('submit', function (e) {
 
-        if () {
+        if (testFirstName == false) {
 
             // Création de l'objet contact
 
