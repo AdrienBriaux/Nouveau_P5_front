@@ -203,8 +203,6 @@ ValidForm();
 
 function ValidForm() {
 
-    let results = [];
-    console.log('results', results);
     // On cible les inputs dans le DOM
 
     const firstName = document.getElementById('firstName');
@@ -215,8 +213,8 @@ function ValidForm() {
 
     // Déclaration des regexp 
 
-    let nameRegexp = new RegExp('[^A-Za-zéè\D]+', 'g');
-    let addressRegexp = new RegExp('^[a-zA-Z0-9\s,.-]{3,60}$');
+    let nameRegexp = new RegExp('^[A-Za-z-\s]+$');
+    let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùç]+( [a-zA-Zéèàùç]+)+)$');
     let emailRegexp = new RegExp('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$');
 
     // On écoute les modifications des champs de saisies du formulaire
@@ -230,20 +228,18 @@ function ValidForm() {
     });
 
 
-    let validFirstName = function (inputText) {
+    let validFirstName = function (inputTextFirstName) {
 
-        testFirstName = nameRegexp.test(inputText.value);
+        testFirstName = nameRegexp.test(inputTextFirstName.value);
         let messErrFirstName = document.getElementById('firstNameErrorMsg');
         console.log('testFirstName', testFirstName);
 
         if (testFirstName) {
 
             messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-            ValidationResult(testFirstName);
         }
 
         messErrFirstName.innerHTML = '';
-        ValidationResult(testFirstName);
     };
 
     // Input du nom
@@ -263,11 +259,9 @@ function ValidForm() {
         if (testLastName) {
 
             messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
-            ValidationResult(testLastName);
         }
 
         messErrLastName.innerHTML = '';
-        ValidationResult(testLastName);
     };
 
     // Input de l'adresse
@@ -287,11 +281,9 @@ function ValidForm() {
         if (testAddress) {
 
             messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
-            ValidationResult(testAddress);
         }
 
         messErrAddress.innerHTML = '';
-        ValidationResult(testAddress);
     };
 
     // Input Ville
@@ -311,11 +303,9 @@ function ValidForm() {
         if (testCity) {
 
             messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
-            ValidationResult(testCity);
         }
 
         messErrCity.innerHTML = '';
-        ValidationResult(testCity);
     };
 
     // Input email
@@ -326,7 +316,7 @@ function ValidForm() {
     });
 
 
-    const validEmail = function (inputTextEmail) {
+    let validEmail = function (inputTextEmail) {
 
         testEmail = emailRegexp.test(inputTextEmail.value);
 
@@ -336,22 +326,11 @@ function ValidForm() {
         if (testEmail) {
 
             messErrEmail.innerHTML = "L'adresse email n'est pas valide";
-            ValidationResult(testEmail)
         }
 
         messErrEmail.innerHTML = '';
-        ValidationResult(testEmail);
     };
 
-    function ValidationResult() {
-
-        if (testEmail == true || testCity == true || testAddress == true || testLastName == true || testFirstName == true) {
-
-            let response = true;
-        }
-
-        let response = false;
-    };
 };
 
 /////////////// Envoi du formulaire  ////////////////
@@ -367,9 +346,7 @@ function sendForm() {
 
     formInputs.addEventListener('submit', function (e) {
 
-        ValidationResult(response);
-
-        if (response) {
+        if () {
 
             // Création de l'objet contact
 
