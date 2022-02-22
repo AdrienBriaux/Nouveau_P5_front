@@ -215,7 +215,7 @@ function ValidForm() {
 
     let nameRegexp = new RegExp('^[a-zA-Z\D]+$');
     let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùç]+( [a-zA-Zéèàùç]+)+)$');
-    let emailRegexp = new RegExp('^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$');
+    let emailRegexp = new RegExp('^[a-zA-Z0-9._]+[@][a-zA-Z0-9._]+[.][a-z]{2,3}$');
 
     // On écoute les modifications des champs de saisies du formulaire
     // On test l'expression réguliére avec le champs du formulaire
@@ -236,10 +236,11 @@ function ValidForm() {
 
         if (testFirstName) {
 
-            messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
+            messErrFirstName.innerHTML = '';
+            return;
         }
 
-        messErrFirstName.innerHTML = '';
+        messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
     };
 
     // Input du nom
@@ -258,10 +259,11 @@ function ValidForm() {
 
         if (testLastName) {
 
-            messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
+            messErrLastName.innerHTML = "";
+            return;
         }
 
-        messErrLastName.innerHTML = '';
+        messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
     };
 
     // Input de l'adresse
@@ -280,10 +282,11 @@ function ValidForm() {
 
         if (testAddress) {
 
-            messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
+            messErrAddress.innerHTML = "";
+            return;
         }
 
-        messErrAddress.innerHTML = '';
+        messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
     };
 
     // Input Ville
@@ -302,10 +305,11 @@ function ValidForm() {
 
         if (testCity) {
 
-            messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
+            messErrCity.innerHTML = '';
+            return;
         }
 
-        messErrCity.innerHTML = '';
+        messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
     };
 
     // Input email
@@ -325,13 +329,25 @@ function ValidForm() {
 
         if (testEmail) {
 
-            messErrEmail.innerHTML = "L'adresse email n'est pas valide";
+            messErrEmail.innerHTML = '';
+            return;
         }
 
-        messErrEmail.innerHTML = '';
+        messErrEmail.innerHTML = "L'adresse email n'est pas valide";
     };
 
 };
+
+function resultatValidation() {
+
+    if (validFirstName == true) {
+
+        return true;
+
+    }
+
+    return false;
+}
 
 /////////////// Envoi du formulaire  ////////////////
 
@@ -344,9 +360,9 @@ function sendForm() {
     // On écoute les inputs du formulaire lorsque l'on valide sont envoi
     // Si les champs du formulaire sont valide
 
-    formInputs.addEventListener('submit', function (e) {
+    if (resultatValidation === true) {
 
-        if (testFirstName == false) {
+        formInputs.addEventListener('submit', function (e) {
 
             // Création de l'objet contact
 
@@ -366,6 +382,8 @@ function sendForm() {
             // Pour chaque produit dans le local storage on récupére son ID
 
             for (let p in localStorageArea) {
+                3
+
 
 
 
@@ -374,10 +392,11 @@ function sendForm() {
             }
 
             alert('Formulaire envoyé');
-        };
+        });
+    };
 
-        alert('Le formulaire n\'est pas valide');
-        e.preventDefault();
-        return;
-    });
+    alert('Le formulaire n\'est pas valide');
+    e.preventDefault();
+    return;
+
 };
