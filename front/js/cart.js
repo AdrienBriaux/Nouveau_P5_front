@@ -234,11 +234,11 @@ function validFirstName(inputText) {
     if (testFirstName) {
 
         messErrFirstName.innerHTML = '';
-        return true;
+        return ;
     }
 
     messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-    return false;
+    return ;
 };
 
 // Input du nom
