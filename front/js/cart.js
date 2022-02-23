@@ -341,61 +341,73 @@ function testRegexpEmail(inputText) {
 /////////////// Envoi du formulaire  ////////////////
 
 
-// On cible le formulaire dans le DOM 
-
-const formInputs = document.querySelector('.cart__order__form');
-console.log(formInputs)
-// On écoute le click du bouton commander et on créer les éléments à poster
-
-formInputs.order.addEventListener('click', function (event) {
+getDataUser();
 
 
+function getDataUser() {
 
-    if (!RegexpFirstName || !RegexpLastName || !RegexpAddress || !RegexpCity || !RegexpEmail) {
+    // On cible le formulaire dans le DOM 
 
-        alert('Une erreur est survenue');
-        return;
-    }
+    const formInputs = document.querySelector('.cart__order__form');
 
-    // Création de l'array des ID de produits commandé
+    // On écoute le click du bouton commander et on créer les éléments à poster
 
-    let productsId = [];
+    formInputs.order.addEventListener('click', function (event) {
 
-    // Pour chaque produit dans le local storage on récupére son ID
 
-    for (let p in localStorageArea) {
 
-        const productId = localStorageArea[p].productId;
-        productsId.push(productId);
-        console.log('productsId', productsId)
-    }
+        if (!RegexpFirstName || !RegexpLastName || !RegexpAddress || !RegexpCity || !RegexpEmail) {
 
-    const order = {
+            alert('Le formulaire est invalide');
+            event.preventDefault();
+            return;
+        }
 
-        // Création de l'objet contact
+        // Création de l'array des ID de produits commandé
 
-        contact: {
+        let productsId = [];
 
-            firstName: formInputs.firstName.value,
-            lastName: formInputs.lastName.value,
-            address: formInputs.address.value,
-            city: formInputs.city.value,
-            email: formInputs.email.value,
-        },
+        // Pour chaque produit dans le local storage on récupére son ID
 
-        products: productsId,
-    }
+        for (let p in localStorageArea) {
 
-    const orderConfig = {
+            const productId = localStorageArea[p].productId;
+            productsId.push(productId);
+            console.log('productsId', productsId)
+        }
 
-        method: 'POST',
-        body: JSON.stringify(order),
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-        },
+        const order = {
 
-    }
+            // Création de l'objet contact
+
+            contact: {
+
+                firstName: formInputs.firstName.value,
+                lastName: formInputs.lastName.value,
+                address: formInputs.address.value,
+                city: formInputs.city.value,
+                email: formInputs.email.value,
+            },
+
+            products: productsId,
+        }
+
+        const orderConfig = {
+
+            method: 'POST',
+            body: JSON.stringify(order),
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+
+        }
+
+        sendForm(orderConfig);
+    });
+};
+
+function sendForm(orderConfig) {
 
     fetch("http://localhost:3000/api/products/order", orderConfig)
 
@@ -417,4 +429,4 @@ formInputs.order.addEventListener('click', function (event) {
 
             alert("Une erreur est survenue")
         });
-});
+};
