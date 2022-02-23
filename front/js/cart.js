@@ -221,7 +221,7 @@ let emailRegexp = new RegExp('^[a-zA-Z0-9._]+[@][a-zA-Z0-9._]+[.][a-z]{2,3}$');
 
 firstName.addEventListener('input', function () {
 
-    testRegexpFirstName(this);
+    testRegexpFirstName(firstName);
 });
 
 
@@ -234,18 +234,18 @@ function testRegexpFirstName(inputText) {
     if (RegexpFirstName) {
 
         messErrFirstName.innerHTML = '';
-        return;
+        return true;
     }
 
     messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-    return;
+    return false;
 };
 
 // Input du nom
 
 lastName.addEventListener('input', function () {
 
-    testRegexpLastName(this);
+    testRegexpLastName(lastName);
 });
 
 
@@ -258,17 +258,18 @@ function testRegexpLastName(inputText) {
     if (RegexpLastName) {
 
         messErrLastName.innerHTML = "";
-        return;
+        return true;
     }
 
     messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
+    return false;
 };
 
 // Input de l'adresse
 
 address.addEventListener('input', function () {
 
-    testRegexpAddress(this);
+    testRegexpAddress(address);
 });
 
 
@@ -281,17 +282,18 @@ function testRegexpAddress(inputText) {
     if (RegexpAddress) {
 
         messErrAddress.innerHTML = "";
-        return;
+        return true;
     }
 
     messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
+    return false;
 };
 
 // Input Ville
 
 city.addEventListener('input', function () {
 
-    testRegexpCity(this);
+    testRegexpCity(city);
 });
 
 
@@ -304,17 +306,18 @@ function testRegexpCity(inputText) {
     if (RegexpCity) {
 
         messErrCity.innerHTML = '';
-        return;
+        return true;
     }
 
     messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
+    return false;
 };
 
 // Input email
 
 email.addEventListener('input', function () {
 
-    testRegexpEmail(this);
+    testRegexpEmail(email);
 });
 
 
@@ -327,90 +330,91 @@ function testRegexpEmail(inputText) {
     if (RegexpEmail) {
 
         messErrEmail.innerHTML = '';
-        return;
+        return true;
     }
 
     messErrEmail.innerHTML = "L'adresse email n'est pas valide";
+    return false;
 };
+
 
 /////////////// Envoi du formulaire  ////////////////
 
-function sendForm() {
 
-    // On cible le formulaire dans le DOM 
+// On cible le formulaire dans le DOM 
 
-    const formInputs = document.querySelector('.cart__order__form');
+const formInputs = document.querySelector('.cart__order__form');
+console.log(formInputs)
+// On écoute le click du bouton commander et on créer les éléments à poster
 
-    // On écoute les inputs du formulaire lorsque l'on valide sont envoi
+formInputs.order.addEventListener('click', function (event) {
 
 
-    formInputs.order.addEventListener('click', function (event) {
 
-        /* if (validFirstName(event.target(textInput.value))) {
- 
-             alert('Une erreur est survenue');
-             return;
-          } */
+    if (!RegexpFirstName || !RegexpLastName || !RegexpAddress || !RegexpCity || !RegexpEmail) {
 
-        // Création de l'array des ID de produits commandé
+        alert('Une erreur est survenue');
+        return;
+    }
 
-        let productsId = [];
+    // Création de l'array des ID de produits commandé
 
-        // Pour chaque produit dans le local storage on récupére son ID
+    let productsId = [];
 
-        for (let p in localStorageArea) {
+    // Pour chaque produit dans le local storage on récupére son ID
 
-            const productId = localStorageArea[p].productId;
-            productsId.push(productId);
-            console.log('productsId', productsId)
-        }
+    for (let p in localStorageArea) {
 
-        const order = {
+        const productId = localStorageArea[p].productId;
+        productsId.push(productId);
+        console.log('productsId', productsId)
+    }
 
-            // Création de l'objet contact
+    const order = {
 
-            contact: {
+        // Création de l'objet contact
 
-                firstName: formInputs.firstName.value,
-                lastName: formInputs.lastName.value,
-                address: formInputs.address.value,
-                city: formInputs.city.value,
-                email: formInputs.email.value,
-            },
+        contact: {
 
-            products: productsId,
-        }
+            firstName: formInputs.firstName.value,
+            lastName: formInputs.lastName.value,
+            address: formInputs.address.value,
+            city: formInputs.city.value,
+            email: formInputs.email.value,
+        },
 
-        const orderConfig = {
+        products: productsId,
+    }
 
-            method: 'POST',
-            body: JSON.stringify(order),
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-            },
+    const orderConfig = {
 
-        }
+        method: 'POST',
+        body: JSON.stringify(order),
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
 
-        fetch("http://localhost:3000/api/products/order", orderConfig)
+    }
 
-            .then(function (res) {
-                if (res.ok) {
-                    return res.json();
-                }
-            })
+    fetch("http://localhost:3000/api/products/order", orderConfig)
 
-            .then(function (dataApi) {
-                console.log('order', dataApi.orderId);
-                window.location.href = `confirmation.html?orderId=${dataApi.orderId}`;
-                alert('Le formulaire à été envoyé');
-            })
+        .then(function (res) {
+            if (res.ok) {
+                return res.json();
+            }
+        })
 
-            .catch(function (error) {
-                alert("Une erreur est survenue")
+        // On récupére l'ID de la commande retourné par l'API
 
-            });
-    });
-};
+        .then(function (dataApi) {
+            console.log('order', dataApi.orderId);
+            window.location.href = `confirmation.html?orderId=${dataApi.orderId}`;
+            alert('Le formulaire à été envoyé');
+        })
 
-sendForm();
+        .catch(function (error) {
+
+            alert("Une erreur est survenue")
+        });
+});
