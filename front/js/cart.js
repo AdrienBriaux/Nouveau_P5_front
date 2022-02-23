@@ -221,41 +221,41 @@ let emailRegexp = new RegExp('^[a-zA-Z0-9._]+[@][a-zA-Z0-9._]+[.][a-z]{2,3}$');
 
 firstName.addEventListener('input', function () {
 
-    validFirstName(this);
+    testRegexpFirstName(this);
 });
 
 
-function validFirstName(inputText) {
+function testRegexpFirstName(inputText) {
 
-    testFirstName = nameRegexp.test(inputText.value);
+    RegexpFirstName = nameRegexp.test(inputText.value);
     let messErrFirstName = document.getElementById('firstNameErrorMsg');
-    console.log('testFirstName', testFirstName);
+    console.log('testRegexpFirstName', RegexpFirstName);
 
-    if (testFirstName) {
+    if (RegexpFirstName) {
 
         messErrFirstName.innerHTML = '';
-        return ;
+        return;
     }
 
     messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-    return ;
+    return;
 };
 
 // Input du nom
 
 lastName.addEventListener('input', function () {
 
-    validLastName(this);
+    testRegexpLastName(this);
 });
 
 
-function validLastName(inputTextLastName) {
+function testRegexpLastName(inputText) {
 
-    testLastName = nameRegexp.test(inputTextLastName.value);
+    RegexpLastName = nameRegexp.test(inputText.value);
     let messErrLastName = document.getElementById('lastNameErrorMsg');
-    console.log('testLastName', testLastName);
+    console.log('testRegexpLastName', RegexpLastName);
 
-    if (testLastName) {
+    if (RegexpLastName) {
 
         messErrLastName.innerHTML = "";
         return;
@@ -268,17 +268,17 @@ function validLastName(inputTextLastName) {
 
 address.addEventListener('input', function () {
 
-    validAddress(this);
+    testRegexpAddress(this);
 });
 
 
-function validAddress(inputTextAddress) {
+function testRegexpAddress(inputText) {
 
-    testAddress = addressRegexp.test(inputTextAddress.value);
+    RegexpAddress = addressRegexp.test(inputText.value);
     let messErrAddress = document.getElementById('addressErrorMsg');
-    console.log('testAddress', testAddress)
+    console.log('testRegexpAddress', RegexpAddress)
 
-    if (testAddress) {
+    if (RegexpAddress) {
 
         messErrAddress.innerHTML = "";
         return;
@@ -291,17 +291,17 @@ function validAddress(inputTextAddress) {
 
 city.addEventListener('input', function () {
 
-    validCity(this);
+    testRegexpCity(this);
 });
 
 
-function validCity(inputTextCity) {
+function testRegexpCity(inputText) {
 
-    testCity = nameRegexp.test(inputTextCity.value);
+    RegexpCity = nameRegexp.test(inputText.value);
     let messErrCity = document.getElementById('cityErrorMsg');
-    console.log('testCity', testCity)
+    console.log('testRegexpCity', RegexpCity)
 
-    if (testCity) {
+    if (RegexpCity) {
 
         messErrCity.innerHTML = '';
         return;
@@ -314,19 +314,17 @@ function validCity(inputTextCity) {
 
 email.addEventListener('input', function () {
 
-    validEmail(this);
+    testRegexpEmail(this);
 });
 
 
-function validEmail(inputTextEmail) {
+function testRegexpEmail(inputText) {
 
-    testEmail = emailRegexp.test(inputTextEmail.value);
-
+    RegexpEmail = emailRegexp.test(inputText.value);
     let messErrEmail = document.getElementById('emailErrorMsg');
+    console.log('testRegexpEmail', RegexpEmail)
 
-    console.log('testEmail', testEmail)
-
-    if (testEmail) {
+    if (RegexpEmail) {
 
         messErrEmail.innerHTML = '';
         return;
