@@ -228,7 +228,7 @@ function ValidForm() {
     });
 
 
-    let validFirstName = function (inputTextFirstName) {
+    function validFirstName(inputTextFirstName) {
 
         testFirstName = nameRegexp.test(inputTextFirstName.value);
         let messErrFirstName = document.getElementById('firstNameErrorMsg');
@@ -251,7 +251,7 @@ function ValidForm() {
     });
 
 
-    let validLastName = function (inputTextLastName) {
+    function validLastName(inputTextLastName) {
 
         testLastName = nameRegexp.test(inputTextLastName.value);
         let messErrLastName = document.getElementById('lastNameErrorMsg');
@@ -274,7 +274,7 @@ function ValidForm() {
     });
 
 
-    let validAddress = function (inputTextAddress) {
+    function validAddress(inputTextAddress) {
 
         testAddress = addressRegexp.test(inputTextAddress.value);
         let messErrAddress = document.getElementById('addressErrorMsg');
@@ -297,7 +297,7 @@ function ValidForm() {
     });
 
 
-    let validCity = function (inputTextCity) {
+    function validCity(inputTextCity) {
 
         testCity = nameRegexp.test(inputTextCity.value);
         let messErrCity = document.getElementById('cityErrorMsg');
@@ -320,11 +320,12 @@ function ValidForm() {
     });
 
 
-    let validEmail = function (inputTextEmail) {
+    function validEmail(inputTextEmail) {
 
         testEmail = emailRegexp.test(inputTextEmail.value);
 
         let messErrEmail = document.getElementById('emailErrorMsg');
+
         console.log('testEmail', testEmail)
 
         if (testEmail) {
@@ -338,65 +339,78 @@ function ValidForm() {
 
 };
 
-function resultatValidation() {
-
-    if (validFirstName == true) {
-
-        return true;
-
-    }
-
-    return false;
-}
-
 /////////////// Envoi du formulaire  ////////////////
 
 function sendForm() {
 
-    // On cible le formulaire dans le DOM
+    // On cible le formulaire dans le DOM 
 
     const formInputs = document.querySelector('.cart__order__form');
 
     // On écoute les inputs du formulaire lorsque l'on valide sont envoi
-    // Si les champs du formulaire sont valide
 
-    if (resultatValidation === true) {
 
-        formInputs.addEventListener('submit', function (e) {
+    formInputs.order.addEventListener('click', function (e) {
+
+
+
+        // Création de l'array des ID de produits commandé
+
+        let productsId = [];
+
+        // Pour chaque produit dans le local storage on récupére son ID
+
+        for (let p in localStorageArea) {
+
+            const productId = localStorageArea[p].productId;
+            productsId.push(productId);
+            console.log('productsId', productsId)
+        }
+
+        const order = {
 
             // Création de l'objet contact
 
-            let contact = {
+            contact: {
 
                 firstName: formInputs.firstName.value,
                 lastName: formInputs.lastName.value,
                 address: formInputs.address.value,
                 city: formInputs.city.value,
-                email: formInputs.email.value
-            }
+                email: formInputs.email.value,
+            },
 
-            // Création de l'array des ID de produits commandé
+            products: productsId,
+        }
 
-            let products = [''];
+        fetch("http://localhost:3000/api/products/order", {
 
-            // Pour chaque produit dans le local storage on récupére son ID
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(order),
+        })
 
-            for (let p in localStorageArea) {
-                3
+            .then(function (res) {
+                if (res.ok) {
+                    return res.json();
+                }
+            })
 
+            .then(function (order) {
+                console.log('order', order);
+                alert('Le formulaire à été envoyé');
+            })
 
+            .catch(function (error) {
+                alert("Une erreur est survenue")
+                
+            });
 
-
-                const productId = localStorageArea[p].productId;
-                products.push(productId);
-            }
-
-            alert('Formulaire envoyé');
-        });
-    };
-
-    alert('Le formulaire n\'est pas valide');
-    e.preventDefault();
-    return;
+    });
 
 };
+
+sendForm();
