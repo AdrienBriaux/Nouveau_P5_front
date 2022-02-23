@@ -1,6 +1,7 @@
 let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
 let productListFromApi = [];
 
+
 // Récupération des données des produits du panier par leur id
 
 
@@ -199,144 +200,139 @@ function totalCartPrice(productListFromApi) {
 
 //////////// Validation des inputs ///////////////////////////////
 
-ValidForm();
+// On cible les inputs dans le DOM
 
-function ValidForm() {
+const firstName = document.getElementById('firstName');
+const lastName = document.getElementById('lastName');
+const address = document.getElementById('address');
+const city = document.getElementById('city');
+const email = document.getElementById('email');
 
-    // On cible les inputs dans le DOM
+// Déclaration des regexp 
 
-    const firstName = document.getElementById('firstName');
-    const lastName = document.getElementById('lastName');
-    const address = document.getElementById('address');
-    const city = document.getElementById('city');
-    const email = document.getElementById('email');
+let nameRegexp = new RegExp('^[a-zA-Z\D]+$');
+let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùç]+( [a-zA-Zéèàùç]+)+)$');
+let emailRegexp = new RegExp('^[a-zA-Z0-9._]+[@][a-zA-Z0-9._]+[.][a-z]{2,3}$');
 
-    // Déclaration des regexp 
+// On écoute les modifications des champs de saisies du formulaire
+// On test l'expression réguliére avec le champs du formulaire
 
-    let nameRegexp = new RegExp('^[a-zA-Z\D]+$');
-    let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùç]+( [a-zA-Zéèàùç]+)+)$');
-    let emailRegexp = new RegExp('^[a-zA-Z0-9._]+[@][a-zA-Z0-9._]+[.][a-z]{2,3}$');
+// Input du prénom
 
-    // On écoute les modifications des champs de saisies du formulaire
-    // On test l'expression réguliére avec le champs du formulaire
+firstName.addEventListener('input', function () {
 
-    // Input du prénom
-
-    firstName.addEventListener('input', function () {
-
-        validFirstName(this);
-    });
+    validFirstName(this);
+});
 
 
-    function validFirstName(inputTextFirstName) {
+function validFirstName(inputText) {
 
-        testFirstName = nameRegexp.test(inputTextFirstName.value);
-        let messErrFirstName = document.getElementById('firstNameErrorMsg');
-        console.log('testFirstName', testFirstName);
+    testFirstName = nameRegexp.test(inputText.value);
+    let messErrFirstName = document.getElementById('firstNameErrorMsg');
+    console.log('testFirstName', testFirstName);
 
-        if (testFirstName) {
+    if (testFirstName) {
 
-            messErrFirstName.innerHTML = '';
-            return;
-        }
+        messErrFirstName.innerHTML = '';
+        return true;
+    }
 
-        messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
-    };
+    messErrFirstName.innerHTML = "Le prénom n'est pas valide, seul les lettres sont autorisé";
+    return false;
+};
 
-    // Input du nom
+// Input du nom
 
-    lastName.addEventListener('input', function () {
+lastName.addEventListener('input', function () {
 
-        validLastName(this);
-    });
-
-
-    function validLastName(inputTextLastName) {
-
-        testLastName = nameRegexp.test(inputTextLastName.value);
-        let messErrLastName = document.getElementById('lastNameErrorMsg');
-        console.log('testLastName', testLastName);
-
-        if (testLastName) {
-
-            messErrLastName.innerHTML = "";
-            return;
-        }
-
-        messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
-    };
-
-    // Input de l'adresse
-
-    address.addEventListener('input', function () {
-
-        validAddress(this);
-    });
+    validLastName(this);
+});
 
 
-    function validAddress(inputTextAddress) {
+function validLastName(inputTextLastName) {
 
-        testAddress = addressRegexp.test(inputTextAddress.value);
-        let messErrAddress = document.getElementById('addressErrorMsg');
-        console.log('testAddress', testAddress)
+    testLastName = nameRegexp.test(inputTextLastName.value);
+    let messErrLastName = document.getElementById('lastNameErrorMsg');
+    console.log('testLastName', testLastName);
 
-        if (testAddress) {
+    if (testLastName) {
 
-            messErrAddress.innerHTML = "";
-            return;
-        }
+        messErrLastName.innerHTML = "";
+        return;
+    }
 
-        messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
-    };
+    messErrLastName.innerHTML = "Le nom n'est pas valide, seul les lettres sont autorisé";
+};
 
-    // Input Ville
+// Input de l'adresse
 
-    city.addEventListener('input', function () {
+address.addEventListener('input', function () {
 
-        validCity(this);
-    });
-
-
-    function validCity(inputTextCity) {
-
-        testCity = nameRegexp.test(inputTextCity.value);
-        let messErrCity = document.getElementById('cityErrorMsg');
-        console.log('testCity', testCity)
-
-        if (testCity) {
-
-            messErrCity.innerHTML = '';
-            return;
-        }
-
-        messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
-    };
-
-    // Input email
-
-    email.addEventListener('input', function () {
-
-        validEmail(this);
-    });
+    validAddress(this);
+});
 
 
-    function validEmail(inputTextEmail) {
+function validAddress(inputTextAddress) {
 
-        testEmail = emailRegexp.test(inputTextEmail.value);
+    testAddress = addressRegexp.test(inputTextAddress.value);
+    let messErrAddress = document.getElementById('addressErrorMsg');
+    console.log('testAddress', testAddress)
 
-        let messErrEmail = document.getElementById('emailErrorMsg');
+    if (testAddress) {
 
-        console.log('testEmail', testEmail)
+        messErrAddress.innerHTML = "";
+        return;
+    }
 
-        if (testEmail) {
+    messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
+};
 
-            messErrEmail.innerHTML = '';
-            return;
-        }
+// Input Ville
 
-        messErrEmail.innerHTML = "L'adresse email n'est pas valide";
-    };
+city.addEventListener('input', function () {
 
+    validCity(this);
+});
+
+
+function validCity(inputTextCity) {
+
+    testCity = nameRegexp.test(inputTextCity.value);
+    let messErrCity = document.getElementById('cityErrorMsg');
+    console.log('testCity', testCity)
+
+    if (testCity) {
+
+        messErrCity.innerHTML = '';
+        return;
+    }
+
+    messErrCity.innerHTML = "Le nom de la ville n'est pas valide, seul les lettres sont autorisé";
+};
+
+// Input email
+
+email.addEventListener('input', function () {
+
+    validEmail(this);
+});
+
+
+function validEmail(inputTextEmail) {
+
+    testEmail = emailRegexp.test(inputTextEmail.value);
+
+    let messErrEmail = document.getElementById('emailErrorMsg');
+
+    console.log('testEmail', testEmail)
+
+    if (testEmail) {
+
+        messErrEmail.innerHTML = '';
+        return;
+    }
+
+    messErrEmail.innerHTML = "L'adresse email n'est pas valide";
 };
 
 /////////////// Envoi du formulaire  ////////////////
@@ -350,9 +346,13 @@ function sendForm() {
     // On écoute les inputs du formulaire lorsque l'on valide sont envoi
 
 
-    formInputs.order.addEventListener('click', function (e) {
+    formInputs.order.addEventListener('click', function (event) {
 
-
+        /* if (validFirstName(event.target(textInput.value))) {
+ 
+             alert('Une erreur est survenue');
+             return;
+          } */
 
         // Création de l'array des ID de produits commandé
 
@@ -383,15 +383,18 @@ function sendForm() {
             products: productsId,
         }
 
-        fetch("http://localhost:3000/api/products/order", {
+        const orderConfig = {
 
             method: 'POST',
+            body: JSON.stringify(order),
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(order),
-        })
+
+        }
+
+        fetch("http://localhost:3000/api/products/order", orderConfig)
 
             .then(function (res) {
                 if (res.ok) {
@@ -399,18 +402,17 @@ function sendForm() {
                 }
             })
 
-            .then(function (order) {
-                console.log('order', order);
+            .then(function (dataApi) {
+                console.log('order', dataApi.orderId);
+                window.location.href = `confirmation.html?orderId=${dataApi.orderId}`;
                 alert('Le formulaire à été envoyé');
             })
 
             .catch(function (error) {
                 alert("Une erreur est survenue")
-                
+
             });
-
     });
-
 };
 
 sendForm();
