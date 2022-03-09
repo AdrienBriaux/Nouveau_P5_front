@@ -124,7 +124,6 @@ function displayCart(productList) {
             totalCartPrice(productListFromApi);
 
             return;
-
         });
 
 
@@ -137,7 +136,7 @@ function displayCart(productList) {
         deleteItem.textContent = 'Supprimer';
 
 
-        // Au clic on suprime le produit dans le local storage
+        // Au clic on supprime le produit dans le local storage
 
         deleteItem.addEventListener('click', (event) => {
 
@@ -145,21 +144,16 @@ function displayCart(productList) {
 
             localStorageArea = localStorageArea.filter(el => el.productId !== idProduct || el.colorChoice !== color);
 
-            // On sauvegarde le résultat dans le local storage
+            // On sauvegarde le résultat dans le local storage et on supprime du DOM 
 
             cartItemArticle.remove();
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
             totalCartPrice(productListFromApi);
-
             return;
-
         });
-
-
     };
-
 };
 
 // Affichage du prix total du panier et du nombre d'article
@@ -211,7 +205,7 @@ const email = document.getElementById('email');
 // Déclaration des regexp 
 
 let nameRegexp = new RegExp('^[a-zA-Z\D]+$');
-let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùç]+( [a-zA-Zéèàùç]+)+)$');
+let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùçîï]+( [a-zA-Zéèàùçîï]+)+)$');
 let emailRegexp = new RegExp('^[a-zA-Z0-9._]+[@][a-zA-Z0-9._]+[.][a-z]{2,3}$');
 
 // On écoute les modifications des champs de saisies du formulaire
@@ -343,6 +337,7 @@ function testRegexpEmail(inputText) {
 
 getDataUser();
 
+// On récupére les données de l'utilisateur
 
 function getDataUser() {
 
@@ -354,7 +349,7 @@ function getDataUser() {
 
     formInputs.order.addEventListener('click', function (event) {
 
-
+        // Si un des champs du formulaire n'est pas valide on modifie l'action de l'événement
 
         if (!RegexpFirstName || !RegexpLastName || !RegexpAddress || !RegexpCity || !RegexpEmail) {
 
@@ -363,6 +358,7 @@ function getDataUser() {
             return;
         }
 
+        // Sinon, les champs du formulaire sont valide, on construit l'objet à envoyer
         // Création de l'array des ID de produits commandé
 
         let productsId = [];
@@ -392,27 +388,33 @@ function getDataUser() {
             products: productsId,
         }
 
+        // Contenu des informations à envoyer
+
         const orderConfig = {
 
             method: 'POST',
             body: JSON.stringify(order),
             headers: {
+
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             },
-
         }
 
-        sendForm(orderConfig);
+        sendData(orderConfig);
     });
 };
 
-function sendForm(orderConfig) {
+// On envoi les données à l'API
+
+function sendData(orderConfig) {
 
     fetch("http://localhost:3000/api/products/order", orderConfig)
 
         .then(function (res) {
+
             if (res.ok) {
+
                 return res.json();
             }
         })
@@ -420,6 +422,7 @@ function sendForm(orderConfig) {
         // On récupére l'ID de la commande retourné par l'API
 
         .then(function (dataApi) {
+
             console.log('order', dataApi.orderId);
             window.location.href = `confirmation.html?orderId=${dataApi.orderId}`;
             alert('Le formulaire à été envoyé');
@@ -427,6 +430,6 @@ function sendForm(orderConfig) {
 
         .catch(function (error) {
 
-            alert("Une erreur est survenue")
+            alert("Une erreur est survenue avec l'API")
         });
 };
