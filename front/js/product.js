@@ -16,7 +16,6 @@ fetch("http://localhost:3000/api/products/" + productId)
     })
 
     .then(function (product) {
-        console.log(product);
         displayProduct(product);
     })
 
@@ -96,7 +95,6 @@ function addToCart() {
 
         let localStorageArea = JSON.parse(localStorage.getItem('productStorage'));
 
-        console.log(localStorageArea);
 
         // Ajout des produits dans le panier
         // Si il y a déjà des produits enregistré

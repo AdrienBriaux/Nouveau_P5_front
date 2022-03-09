@@ -22,12 +22,10 @@ async function getProductCard() {
         const productFromApi = await getProductFromApi(product.productId);
         productList.push(productFromApi);
         productListFromApi[product.productId] = productFromApi;
-        console.log('productListFromApi', productListFromApi);
     }
 
     displayCart(productList);
     totalCartPrice(productListFromApi);
-    console.log('productList', productList);
 };
 
 getProductCard();
@@ -176,7 +174,6 @@ function totalCartPrice(productListFromApi) {
 
     totalQuantityDisplay.innerHTML = totalQuantity;
 
-    console.log('totalQuantity', totalQuantity);
 
     // Prix total
 
@@ -187,9 +184,6 @@ function totalCartPrice(productListFromApi) {
     }
 
     totalPriceDisplay.innerHTML = totalPrice;
-
-    console.log('totalPrice', totalPrice);
-
 };
 
 //////////// Validation des inputs ///////////////////////////////
@@ -205,7 +199,7 @@ const email = document.getElementById('email');
 // Déclaration des regexp 
 
 let nameRegexp = new RegExp('^[a-zA-Z\D]+$');
-let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùçîï]+( [a-zA-Zéèàùçîï]+)+)$');
+let addressRegexp = new RegExp('^[0-9]+.*([a-zA-Zéèàùçîï]+([a-zA-Zéèàùçîï]+)+)$');
 let emailRegexp = new RegExp('^[a-zA-Z0-9._]+[@][a-zA-Z0-9._]+[.][a-z]{2,3}$');
 
 // On écoute les modifications des champs de saisies du formulaire
@@ -279,7 +273,7 @@ function testRegexpAddress(inputText) {
         return true;
     }
 
-    messErrAddress.innerHTML = "L'adresse n'est pas valide, seul les chiffres et lettres sont autorisé, l'adresse doit comporter plus que 4 caractères et maximum 60 caractères";
+    messErrAddress.innerHTML = "L'adresse n'est pas valide, ne pas saisir votre numéro postal, Ex: 10, rue du code.";
     return false;
 };
 
