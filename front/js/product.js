@@ -1,4 +1,4 @@
-//Récupération des données du produit
+//Récupération de l'Id du produit
 
 let str = window.location.href;
 let url = new URL(str);

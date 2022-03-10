@@ -142,13 +142,14 @@ function displayCart(productList) {
 
             localStorageArea = localStorageArea.filter(el => el.productId !== idProduct || el.colorChoice !== color);
 
-            // On sauvegarde le résultat dans le local storage et on supprime du DOM 
+            // On sauvegarde le résultat dans le local storage et on supprime du DOM
 
             cartItemArticle.remove();
 
             localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
 
             totalCartPrice(productListFromApi);
+
             return;
         });
     };
@@ -333,7 +334,7 @@ getDataUser();
 
 // On récupére les données de l'utilisateur
 
-function getDataUser() {
+async function getDataUser() {
 
     // On cible le formulaire dans le DOM 
 
