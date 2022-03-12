@@ -344,12 +344,13 @@ async function getDataUser() {
 
     formInputs.order.addEventListener('click', function (event) {
 
+        event.preventDefault();
         // Si un des champs du formulaire n'est pas valide on modifie l'action de l'événement
 
         if (!RegexpFirstName || !RegexpLastName || !RegexpAddress || !RegexpCity || !RegexpEmail) {
 
             alert('Le formulaire est invalide');
-            event.preventDefault();
+
             return;
         }
 
