@@ -1,4 +1,4 @@
-// Appel de l'API
+// Requête vers l'API
 
 fetch("http://localhost:3000/api/products")
 
@@ -9,6 +9,7 @@ fetch("http://localhost:3000/api/products")
         }
 
     })
+
     .then(function (productsList) {
 
         displayProductList(productsList);
@@ -17,20 +18,19 @@ fetch("http://localhost:3000/api/products")
     .catch(function (error) {
 
         alert("une erreur est survenue")
-
     });
 
-//Intégration dynamique des éléments dans le DOM
+// Intégration dynamique des éléments dans le DOM
 
 function displayProductList(productsList) {
 
-    // Pour chaque Objects dans l'array des produits de l'api
+    // Pour chaque objet dans l'array des produits de l'api
 
     for (let p in productsList) {
 
         const product = productsList[p];
 
-        //Création des éléments dynamique
+        // Création des éléments dynamique
 
         let productLink = document.createElement('a');
         document.getElementById('items').appendChild(productLink);
@@ -51,6 +51,5 @@ function displayProductList(productsList) {
         let productDescription = document.createElement('p');
         productArticle.appendChild(productDescription);
         productDescription.textContent = product.description;
-
     }
 };

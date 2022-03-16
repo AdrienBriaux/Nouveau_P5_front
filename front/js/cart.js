@@ -6,6 +6,7 @@ let productListFromApi = [];
 
 
 async function getProductFromApi(productId) {
+
     const response = await fetch("http://localhost:3000/api/products/" + productId);
     const json = await response.json();
     return json;
@@ -14,10 +15,12 @@ async function getProductFromApi(productId) {
 // Pour chaque identifiants id on lance la fonction getProductFromApi
 // On place la réponse de l'api dans un tableau  
 
-async function getProductCard() {
+async function getProductCart() {
+
     const productList = [];
 
     for (const p in localStorageArea) {
+
         const product = localStorageArea[p];
         const productFromApi = await getProductFromApi(product.productId);
         productList.push(productFromApi);
@@ -28,7 +31,7 @@ async function getProductCard() {
     totalCartPrice(productListFromApi);
 };
 
-getProductCard();
+getProductCart();
 
 
 ///////////// Intégration dynamique des éléments dans le DOM ////////////////
@@ -155,7 +158,7 @@ function displayCart(productList) {
     };
 };
 
-// Affichage du prix total du panier et du nombre d'article
+// Affichage du prix total du panier et du nombre d'articles
 
 
 function totalCartPrice(productListFromApi) {
@@ -166,7 +169,7 @@ function totalCartPrice(productListFromApi) {
     let totalPrice = 0;
     let totalQuantity = 0;
 
-    // Quantité total
+    // Quantité totale
 
     for (let p in localStorageArea) {
 
@@ -345,12 +348,12 @@ async function getDataUser() {
     formInputs.order.addEventListener('click', function (event) {
 
         event.preventDefault();
+
         // Si un des champs du formulaire n'est pas valide on modifie l'action de l'événement
 
         if (!RegexpFirstName || !RegexpLastName || !RegexpAddress || !RegexpCity || !RegexpEmail) {
 
             alert('Le formulaire est invalide');
-
             return;
         }
 

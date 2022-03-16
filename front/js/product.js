@@ -5,7 +5,7 @@ let url = new URL(str);
 let productId = url.searchParams.get("id");
 
 
-//Charger la page avec le produit selectionné
+// Récupération des informations du produit en fonction de l'Id
 
 fetch("http://localhost:3000/api/products/" + productId)
 
@@ -24,7 +24,7 @@ fetch("http://localhost:3000/api/products/" + productId)
     });
 
 
-// Intégartion dynamique des informations du produit
+// Affichage dynamique des informations du produit
 
 function displayProduct(product) {
 
@@ -55,7 +55,6 @@ function displayProduct(product) {
         productColor.value = productById.colors[color];
         productColor.textContent = productById.colors[color];
     }
-
 };
 
 // Ajout du produit sélectionner dans le panier
@@ -127,9 +126,7 @@ function addToCart() {
         localStorageArea = [];
         localStorageArea.push(productOption);
         localStorage.setItem('productStorage', JSON.stringify(localStorageArea));
-
     });
-
 };
 
 addToCart(); 
