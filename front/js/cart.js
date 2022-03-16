@@ -337,7 +337,7 @@ getDataUser();
 
 // On récupére les données de l'utilisateur
 
-async function getDataUser() {
+function getDataUser() {
 
     // On cible le formulaire dans le DOM 
 
@@ -368,7 +368,6 @@ async function getDataUser() {
 
             const productId = localStorageArea[p].productId;
             productsId.push(productId);
-            console.log('productsId', productsId)
         }
 
         const order = {
