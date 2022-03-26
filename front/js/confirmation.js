@@ -6,3 +6,4 @@ let orderId = url.searchParams.get("orderId");
 
 let displayOrderId = document.querySelector('#orderId');
 displayOrderId.innerHTML = orderId;
+localStorage.clear();
